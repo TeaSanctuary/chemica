@@ -3,5 +3,8 @@
   "chemica.tooltip.crusher.crush_button_text": "Crush!",
   "block.chemica.crusher": "Crusher",
   "block.chemica.battery_block": "Battery Block",
-  "itemGroup.chemica.general": "Chemica: General"
+  "itemGroup.chemica.general": "Chemica: General",
+  "item.chemica.screwdriver": "Screwdriver",
+  "item.chemica.battery": "Battery",
+  "item.chemica.tester": "Tester"
 }
