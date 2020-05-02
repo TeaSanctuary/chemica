@@ -1,0 +1,7 @@
+{
+  "chemica.tooltip.battery_block.energyTooltip": "%d/%d EU",
+  "chemica.tooltip.crusher.crush_button_text": "Crush!",
+  "block.chemica.crusher": "Crusher",
+  "block.chemica.battery_block": "Battery Block",
+  "itemGroup.chemica.general": "Chemica: General"
+}

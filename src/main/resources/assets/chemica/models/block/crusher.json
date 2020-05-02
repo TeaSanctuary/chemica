@@ -1,0 +1,11 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chemica:block/basic_crusher_top",
+    "up": "chemica:block/basic_crusher_top",
+    "north": "chemica:block/basic_crusher_front",
+    "east": "chemica:block/basic_crusher_side",
+    "west": "chemica:block/basic_crusher_side",
+    "south": "chemica:block/basic_crusher_side"
+  }
+}
