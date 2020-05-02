@@ -1,9 +1,7 @@
-# Fabric Example Mod
+# Chemica
 
-## Setup
-
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+Minecraft mod. Coming when it's done.
 
 ## License
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+This mod is available under the GNU GPL v3.
