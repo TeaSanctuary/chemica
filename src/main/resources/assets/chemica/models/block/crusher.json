@@ -6,6 +6,7 @@
     "north": "chemica:block/basic_crusher_front",
     "east": "chemica:block/basic_crusher_side",
     "west": "chemica:block/basic_crusher_side",
-    "south": "chemica:block/basic_crusher_side"
+    "south": "chemica:block/basic_crusher_side",
+    "particle": "block/stone"
   }
 }

@@ -5,7 +5,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.util.Tickable;
+import team.reborn.energy.Energy;
 import team.teasanctuary.chemica.ModMain;
+import team.teasanctuary.chemica.api.EnergyStorage;
+import team.teasanctuary.chemica.api.IEnergyStorage;
+import team.teasanctuary.chemica.api.IEnergyStorageHolder;
 import team.teasanctuary.chemica.api.ImplementedInventory;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.container.PropertyDelegate;
@@ -15,9 +19,10 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.DefaultedList;
 
-public class CrusherBlockEntity extends BlockEntity implements Inventory, PropertyDelegateHolder, Tickable {
+public class CrusherBlockEntity extends BlockEntity implements ImplementedInventory, PropertyDelegateHolder, Tickable, IEnergyStorageHolder {
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
+    private EnergyStorage energy = new EnergyStorage(100, true);
     private int step = 100;
     private int maxSteps = 500;
     private int steps = 0;
@@ -83,65 +88,16 @@ public class CrusherBlockEntity extends BlockEntity implements Inventory, Proper
     }
 
     @Override
-    public int getInvSize() {
-        return items.size();
-    }
-
-    @Override
-    public boolean isInvEmpty() {
-        return items.size() > 0;
-    }
-
-    @Override
-    public ItemStack getInvStack(int slot) {
-        return items.get(slot);
-    }
-
-    @Override
-    public ItemStack takeInvStack(int slot, int amount) {
-        ItemStack stack = getInvStack(slot);
-
-        if (stack.getCount() - amount <= 0) {
-            getItems().set(slot, ItemStack.EMPTY);
-        } else {
-            stack.setCount(amount);
-        }
-
-        return stack;
-    }
-
-    @Override
-    public ItemStack removeInvStack(int slot) {
-        getItems().set(slot, ItemStack.EMPTY);
-
-        return getInvStack(slot);
-    }
-
-    @Override
-    public void setInvStack(int slot, ItemStack stack) {
-        getItems().set(slot, stack);
-    }
-
-    @Override
-    public boolean canPlayerUseInv(PlayerEntity player) {
-        return true;
-    }
-
-    @Override
-    public void clear() {
-        this.items.clear();
-    }
-
-    @Override
     public void tick() {
         if (steps >= maxSteps) {
             this.steps = 0;
-
-            this.items.set(0, ItemStack.EMPTY);
-            markDirty();
-
-            this.items.set(1, new ItemStack(Items.APPLE, 1));
-            markDirty();
+            setInvStack(0, ItemStack.EMPTY);
+            setInvStack(1, new ItemStack(Items.APPLE, 1));
         }
+    }
+
+    @Override
+    public IEnergyStorage getEnergyStorage() {
+        return energy;
     }
 }
