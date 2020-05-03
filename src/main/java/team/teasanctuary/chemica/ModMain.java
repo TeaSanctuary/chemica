@@ -2,10 +2,10 @@ package team.teasanctuary.chemica;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.network.PacketConsumer;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.math.BlockPos;
 import team.teasanctuary.chemica.blocks.BatteryBlock;
 import team.teasanctuary.chemica.blocks.CrusherBlock;
@@ -24,12 +24,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import team.teasanctuary.chemica.recipes.CrusherRecipe;
 
 public class ModMain implements ModInitializer {
 	public static final BatteryBlock BATTERY_BLOCK = new BatteryBlock(FabricBlockSettings.of(Material.METAL).build());
 	public static final Block CRUSHER_BLOCK = new CrusherBlock(FabricBlockSettings.of(Material.STONE).build());
 	public static BlockEntityType<BatteryBlockEntity> BATTERY_BLOCK_ENTITY;
 	public static BlockEntityType<CrusherBlockEntity> CRUSHER_BLOCK_ENTITY;
+	public static final RecipeType<CrusherRecipe> CRUSHER_RECIPE = new RecipeType<CrusherRecipe>() {
+		@Override
+		public String toString () {
+			return CrusherRecipe.ID.toString();
+		}
+	};
 
 	public static final ItemGroup CHEMICA_GENERAL = FabricItemGroupBuilder.create(
 			new Identifier("chemica", "general"))
@@ -53,6 +60,9 @@ public class ModMain implements ModInitializer {
 		Registry.register(Registry.BLOCK, BatteryBlock.ID, BATTERY_BLOCK);
 		Registry.register(Registry.ITEM, BatteryBlock.ID, new BlockItem(BATTERY_BLOCK, new Item.Settings().group(ItemGroup.MISC)));
 		BATTERY_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, BatteryBlock.ID, BlockEntityType.Builder.create(BatteryBlockEntity::new, BATTERY_BLOCK).build(null));
+
+		Registry.register(Registry.RECIPE_TYPE, CrusherRecipe.ID, CRUSHER_RECIPE);
+		Registry.register(Registry.RECIPE_SERIALIZER, CrusherRecipe.ID, CrusherRecipe.SERIALIZER);
 
 		ContainerProviderRegistry.INSTANCE.registerFactory(BatteryBlock.ID, (syncId, id, player, buf) -> new BatteryBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
 		ContainerProviderRegistry.INSTANCE.registerFactory(CrusherBlock.ID, (syncId, id, player, buf) -> new CrusherBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
