@@ -8,8 +8,10 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import team.teasanctuary.chemica.blocks.BatteryBlock;
+import team.teasanctuary.chemica.blocks.CrankBlock;
 import team.teasanctuary.chemica.blocks.CrusherBlock;
 import team.teasanctuary.chemica.entities.BatteryBlockEntity;
+import team.teasanctuary.chemica.entities.CrankBlockEntity;
 import team.teasanctuary.chemica.entities.CrusherBlockEntity;
 import team.teasanctuary.chemica.gui.BatteryBlockController;
 import team.teasanctuary.chemica.gui.CrusherBlockController;
@@ -31,8 +33,10 @@ import team.teasanctuary.chemica.items.TesterItem;
 public class ModMain implements ModInitializer {
 	public static final BatteryBlock BATTERY_BLOCK = new BatteryBlock(FabricBlockSettings.of(Material.METAL).build());
 	public static final Block CRUSHER_BLOCK = new CrusherBlock(FabricBlockSettings.of(Material.STONE).build());
+	public static final CrankBlock CRANK_BLOCK = new CrankBlock(FabricBlockSettings.of(Material.WOOD).nonOpaque().build());
 	public static BlockEntityType<BatteryBlockEntity> BATTERY_BLOCK_ENTITY;
 	public static BlockEntityType<CrusherBlockEntity> CRUSHER_BLOCK_ENTITY;
+	public static BlockEntityType<CrankBlockEntity> CRANK_BLOCK_ENTITY;
 	public static final ScrewdriverItem SCREWDRIVER_ITEM = new ScrewdriverItem(new Item.Settings().maxCount(1));
 	public static final BatteryItem BATTERY_ITEM = new BatteryItem(new Item.Settings().maxCount(1));
 	public static final TesterItem TESTER_ITEM = new TesterItem(new Item.Settings().maxCount(1));
@@ -46,6 +50,7 @@ public class ModMain implements ModInitializer {
 				stacks.add(new ItemStack(SCREWDRIVER_ITEM));
 				stacks.add(new ItemStack(BATTERY_ITEM));
 				stacks.add(new ItemStack(TESTER_ITEM));
+				stacks.add(new ItemStack(CRANK_BLOCK));
 			})
 			.build();
 
@@ -61,6 +66,10 @@ public class ModMain implements ModInitializer {
 		Registry.register(Registry.BLOCK, CrusherBlock.ID, CRUSHER_BLOCK);
 		Registry.register(Registry.ITEM, CrusherBlock.ID, new BlockItem(CRUSHER_BLOCK, new Item.Settings().maxCount(1).group(ItemGroup.MISC)));
 		CRUSHER_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, CrusherBlock.ID, BlockEntityType.Builder.create(CrusherBlockEntity::new, CRUSHER_BLOCK).build(null));
+
+		Registry.register(Registry.BLOCK, CrankBlock.ID, CRANK_BLOCK);
+		Registry.register(Registry.ITEM, CrankBlock.ID, new BlockItem(CRANK_BLOCK, new Item.Settings().group(CHEMICA_GENERAL)));
+		CRANK_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, CrankBlock.ID, BlockEntityType.Builder.create(CrankBlockEntity::new, CRANK_BLOCK).build(null));
 
 		Registry.register(Registry.BLOCK, BatteryBlock.ID, BATTERY_BLOCK);
 		Registry.register(Registry.ITEM, BatteryBlock.ID, new BlockItem(BATTERY_BLOCK, new Item.Settings().group(ItemGroup.MISC)));

@@ -6,5 +6,6 @@
   "itemGroup.chemica.general": "Chemica: General",
   "item.chemica.screwdriver": "Screwdriver",
   "item.chemica.battery": "Battery",
-  "item.chemica.tester": "Tester"
+  "item.chemica.tester": "Tester",
+  "block.chemica.crank": "Crank"
 }
