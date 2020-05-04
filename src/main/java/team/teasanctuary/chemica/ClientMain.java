@@ -7,7 +7,7 @@ import net.minecraft.client.render.RenderLayer;
 import team.teasanctuary.chemica.blocks.EnergyBoxBlock;
 import team.teasanctuary.chemica.blocks.CrusherBlock;
 import team.teasanctuary.chemica.blocks.SolidFuelGeneratorBlock;
-import team.teasanctuary.chemica.gui.BatteryBlockController;
+import team.teasanctuary.chemica.gui.EnergyBoxController;
 import team.teasanctuary.chemica.gui.CrusherBlockController;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.minecraft.container.BlockContext;
@@ -30,7 +30,7 @@ public class ClientMain implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModMain.CRANK_BLOCK, RenderLayer.getCutout());
 
         ScreenProviderRegistry.INSTANCE.registerFactory(TesterItem.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<TesterItemController>(new TesterItemController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
-        ScreenProviderRegistry.INSTANCE.registerFactory(EnergyBoxBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<BatteryBlockController>(new BatteryBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
+        ScreenProviderRegistry.INSTANCE.registerFactory(EnergyBoxBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<EnergyBoxController>(new EnergyBoxController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
         ScreenProviderRegistry.INSTANCE.registerFactory(CrusherBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<CrusherBlockController>(new CrusherBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
         ScreenProviderRegistry.INSTANCE.registerFactory(SolidFuelGeneratorBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<SolidFuelGeneratorController>(new SolidFuelGeneratorController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
     }

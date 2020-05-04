@@ -15,7 +15,7 @@ import team.teasanctuary.chemica.entities.EnergyBoxEntity;
 import team.teasanctuary.chemica.entities.CrankBlockEntity;
 import team.teasanctuary.chemica.entities.CrusherBlockEntity;
 import team.teasanctuary.chemica.entities.SolidFuelGeneratorEntity;
-import team.teasanctuary.chemica.gui.BatteryBlockController;
+import team.teasanctuary.chemica.gui.EnergyBoxController;
 import team.teasanctuary.chemica.gui.CrusherBlockController;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
@@ -108,7 +108,7 @@ public class ModMain implements ModInitializer {
 		Registry.register(Registry.RECIPE_TYPE, GeneratorRecipe.ID, GENERATOR_RECIPE);
 		Registry.register(Registry.RECIPE_SERIALIZER, GeneratorRecipe.ID, GeneratorRecipe.SERIALIZER);
 
-		ContainerProviderRegistry.INSTANCE.registerFactory(EnergyBoxBlock.ID, (syncId, id, player, buf) -> new BatteryBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
+		ContainerProviderRegistry.INSTANCE.registerFactory(EnergyBoxBlock.ID, (syncId, id, player, buf) -> new EnergyBoxController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
 		ContainerProviderRegistry.INSTANCE.registerFactory(CrusherBlock.ID, (syncId, id, player, buf) -> new CrusherBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
 		ContainerProviderRegistry.INSTANCE.registerFactory(TesterItem.ID, (syncId, id, player, buf) -> new TesterItemController(syncId, player.inventory, BlockContext.create(player.world, player.getBlockPos())));
 		ContainerProviderRegistry.INSTANCE.registerFactory(SolidFuelGeneratorBlock.ID, (syncId, id, player, buf) -> new SolidFuelGeneratorController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
