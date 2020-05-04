@@ -1,5 +1,8 @@
 {
   "variants": {
-    "": { "model": "chemica:block/crank" }
+    "facing=north": { "model": "chemica:block/crank", "uvlock": true, "y": 0 },
+    "facing=east": { "model": "chemica:block/crank", "uvlock": true, "y": 90 },
+    "facing=south": { "model": "chemica:block/crank", "uvlock": true, "y": 180 },
+    "facing=west": { "model": "chemica:block/crank", "uvlock": true, "y": 270 }
   }
 }
