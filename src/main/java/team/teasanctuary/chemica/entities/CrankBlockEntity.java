@@ -36,11 +36,11 @@ public class CrankBlockEntity extends BlockEntity {
         if (crankable == null) return ActionResult.FAIL;
         if (!(crankable instanceof IEnergyStorageHolder)) return ActionResult.PASS;
 
-        System.out.println("crank");
-
         IEnergyStorage e = ((IEnergyStorageHolder) crankable).getEnergyStorage();
 
-        e.recieve(1, false);
+        if (e.canRecieve()) {
+            e.recieve(20, false);
+        }
         return ActionResult.SUCCESS;
     }
 }

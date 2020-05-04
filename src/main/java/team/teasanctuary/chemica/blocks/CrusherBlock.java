@@ -1,6 +1,7 @@
 package team.teasanctuary.chemica.blocks;
 
 import team.teasanctuary.chemica.ModMain;
+import team.teasanctuary.chemica.api.MachineBlock;
 import team.teasanctuary.chemica.entities.CrusherBlockEntity;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.Block;
@@ -17,7 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-public class CrusherBlock extends Block implements BlockEntityProvider {
+public class CrusherBlock extends MachineBlock {
     public static final Identifier ID = new Identifier("chemica", "crusher");
 
     public CrusherBlock(Settings settings) {

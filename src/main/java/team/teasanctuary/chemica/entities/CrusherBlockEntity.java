@@ -1,64 +1,15 @@
 package team.teasanctuary.chemica.entities;
 
-import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
-import net.minecraft.util.Tickable;
-import team.reborn.energy.Energy;
 import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.*;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.container.PropertyDelegate;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.DefaultedList;
+import team.teasanctuary.chemica.recipes.CrusherRecipe;
 
-public class CrusherBlockEntity extends BlockEntity implements ImplementedInventory, PropertyDelegateHolder, Tickable, IEnergyStorageHolder, ICrankable {
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(2, ItemStack.EMPTY);
-
-    private EnergyStorage energy = new EnergyStorage(100, true);
-    private int step = 100;
-    private int maxSteps = 500;
-    private int steps = 0;
+public class CrusherBlockEntity extends MachineBlockEntity implements ICrankable {
 
     public CrusherBlockEntity() {
-        super(ModMain.CRUSHER_BLOCK_ENTITY);
-    }
-
-    public DefaultedList<ItemStack> getItems() {
-        return items;
-    }
-
-    @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
-        Inventories.fromTag(tag,items);
-        step = tag.getInt("step");
-        steps = tag.getInt("steps");
-        maxSteps = tag.getInt("maxSteps");
-        energy.writeFromNBT(tag);
-    }
-
-    public void crush() {
-        System.out.println("steps: " + steps);
-        if (steps + step >= maxSteps) {
-            steps = maxSteps;
-        } else {
-            this.steps += step;
-        }
-    }
-
-    @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        Inventories.toTag(tag,items);
-        tag.putInt("steps", steps);
-        tag.putInt("step", step);
-        tag.putInt("maxSteps", maxSteps);
-        energy.saveToNBT(tag);
-        return super.toTag(tag);
+        super(ModMain.CRUSHER_BLOCK_ENTITY, 100, true, 2);
     }
 
     @Override
@@ -67,8 +18,8 @@ public class CrusherBlockEntity extends BlockEntity implements ImplementedInvent
             @Override
             public int get(int index) {
                 switch(index) {
-                    case 0: return steps;
-                    case 1: return maxSteps;
+                    case 0: return energy.getAmount();
+                    case 1: return energy.getCapacity();
                 }
 
                 return 0;
@@ -88,21 +39,51 @@ public class CrusherBlockEntity extends BlockEntity implements ImplementedInvent
 
     @Override
     public void tick() {
-        if (steps >= maxSteps) {
-            this.steps = 0;
-            setInvStack(0, ItemStack.EMPTY);
-            setInvStack(1, new ItemStack(Items.APPLE, 1));
+        if (!world.isClient) {
+            ItemStack from = getInvStack(0);
+
+            if (!from.isEmpty()) {
+                CrusherRecipe recipe = world.getRecipeManager().getFirstMatch(ModMain.CRUSHER_RECIPE, this, this.world).orElse(null);
+
+                if (recipe != null) {
+                    energy.setRecieve(true);
+                    boolean canRecieve = canRecieveOutput(recipe);
+                    if (energy.getAmount() >= recipe.getTicks() && canRecieve) {
+                        ItemStack input = this.items.get(0);
+                        ItemStack output = this.items.get(1);
+                        ItemStack result = recipe.getOutput();
+
+                        if (output.isEmpty()) {
+                            output = result.copy();
+                            output.setCount(result.getCount());
+                            this.items.set(1, output);
+                        } else if(output.getItem() == result.getItem()) {
+                            output.increment(result.getCount());
+                        }
+
+                        input.decrement(1);
+                    }
+                }
+
+                return;
+            }
+
+            energy.setRecieve(false);
+            energy.extract(energy.getCapacity(), false);
         }
     }
 
-    @Override
-    public IEnergyStorage getEnergyStorage() {
-        return energy;
-    }
+    private boolean canRecieveOutput(CrusherRecipe recipe) {
+        if (!this.items.get(0).isEmpty() && recipe != null) {
+            ItemStack result = recipe.getOutput();
+            if (result.isEmpty()) return false;
 
-    @Override
-    public int requiredEnergy() {
-        // TODO: Make constant
-        return 100;
+            ItemStack output = getInvStack(1);
+            if (output.isEmpty()) return true;
+            if (!output.isItemEqualIgnoreDamage(result)) return false;
+            if (getInvMaxStackAmount() > output.getCount() && output.getCount() < output.getMaxCount()) return true;
+            return output.getCount() < result.getMaxCount();
+        }
+        return false;
     }
 }

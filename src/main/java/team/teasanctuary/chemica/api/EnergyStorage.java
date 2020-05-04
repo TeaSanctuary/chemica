@@ -4,7 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 
 public class EnergyStorage implements IEnergyStorage {
 
-    private int energy = 0;
+    public int energy = 0;
     private int capacity;
     private boolean receive = false;
 
@@ -35,7 +35,12 @@ public class EnergyStorage implements IEnergyStorage {
         return capacity;
     }
 
+    @Override
     public boolean canRecieve() { return receive; }
+
+    public void setRecieve(boolean v) { receive = v; }
+    public void setEnergy(int v) { energy = v; }
+    public void setCapacity(int v) { capacity = v; }
 
     @Override
     public int extract(int n, boolean sim) {
@@ -50,7 +55,6 @@ public class EnergyStorage implements IEnergyStorage {
 
     @Override
     public int recieve(int n, boolean sim) {
-        if (!receive) return -1;
         if (n > 0) {
             final int r = capacity - energy;
             if (n > r)

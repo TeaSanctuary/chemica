@@ -1,5 +1,5 @@
 {
-  "chemica.tooltip.battery_block.energyTooltip": "%d/%d EU",
+  "chemica.tooltip.battery_block.energyTooltip": "%d/%d J",
   "chemica.tooltip.crusher.crush_button_text": "Crush!",
   "block.chemica.crusher": "Crusher",
   "block.chemica.energy_box": "Energy Box",
@@ -7,5 +7,7 @@
   "item.chemica.screwdriver": "Screwdriver",
   "item.chemica.battery": "Battery",
   "item.chemica.tester": "Tester",
-  "block.chemica.crank": "Crank"
+  "block.chemica.crank": "Crank",
+  "block.chemica.solid_fuel_generator": "Solid Fuel Generator",
+  "chemica.tooltip.battery.stored": "Stored: %d/%d J"
 }

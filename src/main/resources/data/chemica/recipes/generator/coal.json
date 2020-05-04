@@ -1,0 +1,7 @@
+{
+  "type": "chemica:generator_recipe",
+  "ingredient": {
+    "item": "minecraft:coal"
+  },
+  "burnTime": 240
+}

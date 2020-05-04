@@ -37,19 +37,7 @@ public class CrusherBlockController extends CottonCraftingController {
         progressBar.setProperties(propertyDelegate);
         root.add(progressBar, 6 * 3, 7, 17, 1);
 
-        WButton button = new WButton(new TranslatableText("chemica.tooltip.crusher.crush_button_text"));
-        button.setOnClick(() -> {
-            context.run((world, pos) -> {
-                PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
-                data.writeBlockPos(pos);
-
-                ClientSidePacketRegistry.INSTANCE.sendToServer(ClientMain.CRUSHER_CRUSH_BUTTON_PACKET_ID, data);
-            });
-        });
-
-        root.add(button, 0, 12);
-
-        root.add(this.createPlayerInventoryPanel(), 0, 20);
+        root.add(this.createPlayerInventoryPanel(), 0, 14);
 
         root.validate(this);
     }

@@ -1,0 +1,9 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top": "chemica:block/generator_side",
+    "bottom": "chemica:block/generator_side",
+    "side": "chemica:block/generator_side",
+    "front": "chemica:block/generator_front_on"
+  }
+}

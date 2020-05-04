@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,burning=false":  { "model": "chemica:block/solid_fuel_generator" },
+    "facing=east,burning=false":   { "model": "chemica:block/solid_fuel_generator", "y": 90 },
+    "facing=south,burning=false":  { "model": "chemica:block/solid_fuel_generator", "y": 180 },
+    "facing=west,burning=false":   { "model": "chemica:block/solid_fuel_generator", "y": 270 },
+    "facing=north,burning=true":  { "model": "chemica:block/solid_fuel_generator_burning" },
+    "facing=east,burning=true":   { "model": "chemica:block/solid_fuel_generator_burning", "y": 90 },
+    "facing=south,burning=true":  { "model": "chemica:block/solid_fuel_generator_burning", "y": 180 },
+    "facing=west,burning=true":   { "model": "chemica:block/solid_fuel_generator_burning", "y": 270 }
+  }
+}
