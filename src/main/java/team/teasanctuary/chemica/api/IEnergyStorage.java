@@ -8,6 +8,9 @@ public interface IEnergyStorage {
     int extract(int n, boolean sim);
     int recieve(int n, boolean sim);
 
+    boolean canRecieve();
+    void setRecieve(boolean v);
+
     default int to(IEnergyStorage dest, final int amount) {
         if (amount > 0) {
             int sim = extract(amount, true);

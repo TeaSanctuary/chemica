@@ -74,4 +74,14 @@ public class EnergyBoxEntity extends BlockEntity implements IEnergyStorage, Prop
         }
         return n;
     }
+
+    @Override
+    public boolean canRecieve() {
+        return false;
+    }
+
+    @Override
+    public void setRecieve(boolean v) {
+
+    }
 }
