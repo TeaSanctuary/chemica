@@ -1,11 +1,10 @@
 package team.teasanctuary.chemica;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import io.github.cottonmc.cotton.gui.client.CottonInventoryScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.render.RenderLayer;
-import team.teasanctuary.chemica.blocks.BatteryBlock;
+import team.teasanctuary.chemica.blocks.EnergyBoxBlock;
 import team.teasanctuary.chemica.blocks.CrusherBlock;
 import team.teasanctuary.chemica.gui.BatteryBlockController;
 import team.teasanctuary.chemica.gui.CrusherBlockController;
@@ -21,7 +20,7 @@ public class ClientMain implements ClientModInitializer {
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(ModMain.CRANK_BLOCK, RenderLayer.getCutout());
 
-        ScreenProviderRegistry.INSTANCE.registerFactory(BatteryBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<BatteryBlockController>(new BatteryBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
+        ScreenProviderRegistry.INSTANCE.registerFactory(EnergyBoxBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<BatteryBlockController>(new BatteryBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
         ScreenProviderRegistry.INSTANCE.registerFactory(CrusherBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<CrusherBlockController>(new CrusherBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
     }
 }

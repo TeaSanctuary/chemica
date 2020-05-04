@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chemica:block/basic_energy_box_side",
+    "up": "chemica:block/basic_energy_box_side",
+    "north": "chemica:block/basic_energy_box_face",
+    "east": "chemica:block/basic_energy_box_side",
+    "west": "chemica:block/basic_energy_box_side",
+    "south": "chemica:block/basic_energy_box_side",
+    "particle": "block/stone"
+  }
+}

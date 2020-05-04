@@ -1,5 +1,6 @@
 package team.teasanctuary.chemica.blocks;
 
+import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.entities.CrusherBlockEntity;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.Block;

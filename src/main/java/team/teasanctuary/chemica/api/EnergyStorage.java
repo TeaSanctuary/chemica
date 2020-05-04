@@ -1,14 +1,28 @@
 package team.teasanctuary.chemica.api;
 
+import net.minecraft.nbt.CompoundTag;
+
 public class EnergyStorage implements IEnergyStorage {
 
     private int energy = 0;
-    private final int capacity;
+    private int capacity;
     private boolean receive = false;
 
     public EnergyStorage(int cap, boolean canRecieve) {
         this.capacity = cap;
         this.receive = canRecieve;
+    }
+
+    public void saveToNBT(CompoundTag tag) {
+        tag.putInt("energy", energy);
+        tag.putInt("capacity", capacity);
+        tag.putBoolean("receive", receive);
+    }
+
+    public void writeFromNBT(CompoundTag tag) {
+        energy = tag.getInt("energy");
+        capacity = tag.getInt("capacity");
+        receive = tag.getBoolean("receive");
     }
 
     @Override
