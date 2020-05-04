@@ -5,10 +5,8 @@ import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
@@ -19,18 +17,30 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import team.teasanctuary.chemica.api.EnergyStorage;
 import team.teasanctuary.chemica.api.ICrankable;
-import team.teasanctuary.chemica.api.IEnergyStorage;
-import team.teasanctuary.chemica.api.IEnergyStorageHolder;
 import team.teasanctuary.chemica.entities.CrankBlockEntity;
-import team.teasanctuary.chemica.entities.CrusherBlockEntity;
 
-public class CrankBlock extends Block implements BlockEntityProvider {
+public class CrankBlock extends HorizontalFacingBlock implements BlockEntityProvider {
     public static final Identifier ID = new Identifier("chemica", "crank");
 
     public CrankBlock(Settings settings) {
         super(settings);
+        setDefaultState(this.stateManager.getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> stateManager) {
+        stateManager.add(Properties.HORIZONTAL_FACING);
+    }
+
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing());
+    }
+
+    private void rotateCrank(World world, BlockPos pos, BlockState state) {
+        Direction dir = Direction.fromHorizontal((state.get(FACING).getHorizontal() + 1) % 4);
+        world.setBlockState(pos, state.with(FACING, dir));
     }
 
     @Override
@@ -62,6 +72,7 @@ public class CrankBlock extends Block implements BlockEntityProvider {
 
         CrankBlockEntity be = (CrankBlockEntity) world.getBlockEntity(pos);
         assert be != null;
+        rotateCrank(world, pos, state);
         return be.onPush();
     }
 
