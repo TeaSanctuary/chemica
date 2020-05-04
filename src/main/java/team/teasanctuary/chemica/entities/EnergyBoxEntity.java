@@ -6,13 +6,13 @@ import team.teasanctuary.chemica.api.IEnergyStorage;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.container.PropertyDelegate;
 
-public class BatteryBlockEntity extends BlockEntity implements IEnergyStorage, PropertyDelegateHolder {
+public class EnergyBoxEntity extends BlockEntity implements IEnergyStorage, PropertyDelegateHolder {
 
     private int energy = 10000;
     private final int energyCapacity = 20000;
 
-    public BatteryBlockEntity() {
-        super(ModMain.BATTERY_BLOCK_ENTITY);
+    public EnergyBoxEntity() {
+        super(ModMain.ENERGY_BOX_ENTITY);
     }
 
     @Override

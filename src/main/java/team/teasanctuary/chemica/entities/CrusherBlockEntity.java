@@ -7,10 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.Tickable;
 import team.reborn.energy.Energy;
 import team.teasanctuary.chemica.ModMain;
-import team.teasanctuary.chemica.api.EnergyStorage;
-import team.teasanctuary.chemica.api.IEnergyStorage;
-import team.teasanctuary.chemica.api.IEnergyStorageHolder;
-import team.teasanctuary.chemica.api.ImplementedInventory;
+import team.teasanctuary.chemica.api.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.container.PropertyDelegate;
 import net.minecraft.inventory.Inventories;
@@ -19,7 +16,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.DefaultedList;
 
-public class CrusherBlockEntity extends BlockEntity implements ImplementedInventory, PropertyDelegateHolder, Tickable, IEnergyStorageHolder {
+public class CrusherBlockEntity extends BlockEntity implements ImplementedInventory, PropertyDelegateHolder, Tickable, IEnergyStorageHolder, ICrankable {
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
     private EnergyStorage energy = new EnergyStorage(100, true);
@@ -42,6 +39,7 @@ public class CrusherBlockEntity extends BlockEntity implements ImplementedInvent
         step = tag.getInt("step");
         steps = tag.getInt("steps");
         maxSteps = tag.getInt("maxSteps");
+        energy.writeFromNBT(tag);
     }
 
     public void crush() {
@@ -59,6 +57,7 @@ public class CrusherBlockEntity extends BlockEntity implements ImplementedInvent
         tag.putInt("steps", steps);
         tag.putInt("step", step);
         tag.putInt("maxSteps", maxSteps);
+        energy.saveToNBT(tag);
         return super.toTag(tag);
     }
 
@@ -99,5 +98,11 @@ public class CrusherBlockEntity extends BlockEntity implements ImplementedInvent
     @Override
     public IEnergyStorage getEnergyStorage() {
         return energy;
+    }
+
+    @Override
+    public int requiredEnergy() {
+        // TODO: Make constant
+        return 100;
     }
 }

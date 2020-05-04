@@ -1,3 +1,68 @@
 {
-  "parent": "chemica:block/crank"
+  "credit": "Made with Blockbench",
+  "textures": {
+    "2": "block/brown_wool",
+    "3": "block/oak_planks"
+  },
+  "elements": [
+    {
+      "from": [7, 0, 7],
+      "to": [9, 9, 9],
+      "rotation": {"angle": 0, "axis": "z", "origin": [7, 0, 16]},
+      "faces": {
+        "north": {"uv": [0, 0, 9, 2], "rotation": 270, "texture": "#3"},
+        "east": {"uv": [0, 0, 9, 2], "rotation": 90, "texture": "#3"},
+        "south": {"uv": [0, 0, 9, 2], "rotation": 90, "texture": "#3"},
+        "west": {"uv": [0, 0, 9, 2], "rotation": 90, "texture": "#3"},
+        "up": {"uv": [0, 0, 2, 2], "rotation": 90, "texture": "#3"},
+        "down": {"uv": [0, 0, 2, 2], "rotation": 90, "texture": "#3"}
+      }
+    },
+    {
+      "from": [14, 7, 7],
+      "to": [16, 11, 9],
+      "rotation": {"angle": 0, "axis": "z", "origin": [7, 0, 16]},
+      "faces": {
+        "north": {"uv": [0, 0, 4, 2], "rotation": 270, "texture": "#3"},
+        "east": {"uv": [0, 0, 4, 2], "rotation": 90, "texture": "#3"},
+        "south": {"uv": [0, 0, 4, 2], "rotation": 90, "texture": "#3"},
+        "west": {"uv": [0, 0, 4, 2], "rotation": 90, "texture": "#3"},
+        "up": {"uv": [0, 0, 2, 2], "rotation": 90, "texture": "#3"},
+        "down": {"uv": [0, 0, 2, 2], "rotation": 90, "texture": "#3"}
+      }
+    },
+    {
+      "from": [14, 11, 7],
+      "to": [16, 16, 9],
+      "rotation": {"angle": 0, "axis": "z", "origin": [7, 0, 16]},
+      "faces": {
+        "north": {"uv": [0, 0, 5, 2], "rotation": 270, "texture": "#2"},
+        "east": {"uv": [0, 0, 5, 2], "rotation": 90, "texture": "#2"},
+        "south": {"uv": [0, 0, 5, 2], "rotation": 90, "texture": "#2"},
+        "west": {"uv": [0, 0, 5, 2], "rotation": 90, "texture": "#2"},
+        "up": {"uv": [0, 0, 2, 2], "rotation": 90, "texture": "#2"},
+        "down": {"uv": [0, 0, 2, 2], "rotation": 90, "texture": "#2"}
+      }
+    },
+    {
+      "from": [9, 7, 7],
+      "to": [14, 9, 9],
+      "rotation": {"angle": 0, "axis": "z", "origin": [7, 0, 16]},
+      "faces": {
+        "north": {"uv": [0, 0, 2, 5], "rotation": 270, "texture": "#3"},
+        "east": {"uv": [0, 0, 2, 2], "rotation": 90, "texture": "#3"},
+        "south": {"uv": [0, 0, 2, 5], "rotation": 90, "texture": "#3"},
+        "west": {"uv": [0, 0, 2, 2], "rotation": 90, "texture": "#3"},
+        "up": {"uv": [0, 0, 2, 5], "rotation": 90, "texture": "#3"},
+        "down": {"uv": [0, 0, 2, 5], "rotation": 90, "texture": "#3"}
+      }
+    }
+  ],
+  "groups": [
+    {
+      "name": "ruchka",
+      "origin": [8, 8, 8],
+      "children": [0, 1, 2, 3]
+    }
+  ]
 }
