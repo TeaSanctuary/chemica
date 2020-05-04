@@ -110,6 +110,9 @@ public class SolidFuelGeneratorEntity extends MachineBlockEntity {
                     }
                 }
             }
+            if (energy.getAmount() > 0) {
+                energy.emitEnergy(this, world, pos, 30);
+            }
         }
     }
 

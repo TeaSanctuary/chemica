@@ -1,18 +1,19 @@
 package team.teasanctuary.chemica.entities;
 
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import team.teasanctuary.chemica.ModMain;
-import team.teasanctuary.chemica.api.IEnergyStorage;
+import team.teasanctuary.chemica.api.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.container.PropertyDelegate;
 
-public class EnergyBoxEntity extends BlockEntity implements IEnergyStorage, PropertyDelegateHolder {
+public class EnergyBoxEntity extends MachineBlockEntity {
 
-    private int energy = 10000;
-    private final int energyCapacity = 20000;
+    private final int transferRate = 60;
 
     public EnergyBoxEntity() {
-        super(ModMain.ENERGY_BOX_ENTITY);
+        super(ModMain.ENERGY_BOX_ENTITY, 500000, true, 2);
     }
 
     @Override
@@ -22,66 +23,60 @@ public class EnergyBoxEntity extends BlockEntity implements IEnergyStorage, Prop
             public int get(int index) {
                 switch (index) {
                     // energy
-                    case 0: return energy;
+                    case 0: return energy.getAmount();
                     // capacity
-                    case 1: return energyCapacity;
+                    case 1: return energy.getCapacity();
+                    default: return 0;
                 }
-
-                return 0;
             }
 
             @Override
             public void set(int index, int value) {
-
+                switch (index) {
+                    // energy
+                    case 0:
+                        energy.setEnergy(value);
+                        break;
+                    // capacity
+                    case 1:
+                        energy.setCapacity(value);
+                        break;
+                }
             }
 
             @Override
             public int size() {
-                return 0;
+                return 2;
             }
         };
     }
 
     @Override
-    public int getAmount() {
-        return energy;
-    }
+    public void tick() {
+        super.tick();
 
-    @Override
-    public int getCapacity() {
-        return energyCapacity;
-    }
+        if (!world.isClient) {
+            ItemStack chargable = getInvStack(0);
+            ItemStack dischargable = getInvStack(1);
 
-    @Override
-    public int extract(int n, boolean sim) {
-        if (n > 0) {
-            if (n > energy)
-                n = energy;
-            if (!sim)
-                energy -= n;
+            if (!chargable.isEmpty()) {
+                Item item = chargable.getItem();
+
+                if (item instanceof IItemEnergyStorageHolder) {
+                    if (((IItemEnergyStorageHolder) item).getEnergyStorage(chargable).getAmount() < ((IItemEnergyStorageHolder) item).getEnergyStorage(chargable).getCapacity())
+                        energy.to(((IItemEnergyStorageHolder) item).getEnergyStorage(chargable), transferRate);
+                }
+            }
+
+            if (!dischargable.isEmpty()) {
+                Item item = dischargable.getItem();
+
+                if (item instanceof IItemEnergyStorageHolder) {
+                    if (((IItemEnergyStorageHolder) item).getEnergyStorage(dischargable).getAmount() > 0) {
+                        ((IItemEnergyStorageHolder) item).getEnergyStorage(dischargable).to(this.getEnergyStorage(), transferRate);
+                    }
+                }
+            }
         }
-        return n;
-    }
-
-    @Override
-    public int recieve(int n, boolean sim) {
-        if (n > 0) {
-            final int r = energyCapacity - energy;
-            if (n > r)
-                n = r;
-            if (!sim)
-                energy += n;
-        }
-        return n;
-    }
-
-    @Override
-    public boolean canRecieve() {
-        return false;
-    }
-
-    @Override
-    public void setRecieve(boolean v) {
-
     }
 }
