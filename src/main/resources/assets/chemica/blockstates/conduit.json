@@ -1,0 +1,65 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "chemica:block/conduit_center"
+      }
+    },
+    {
+      "when": {
+        "connected_east": true
+      },
+      "apply": {
+        "model": "chemica:block/conduit_side",
+        "x": 270,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "connected_south": true
+      },
+      "apply": {
+        "model": "chemica:block/conduit_side",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "connected_west": true
+      },
+      "apply": {
+        "model": "chemica:block/conduit_side",
+        "x": 90,
+        "y": 90
+
+      }
+    },
+    {
+      "when": {
+        "connected_north": true
+      },
+      "apply": {
+        "model": "chemica:block/conduit_side",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "connected_up": true
+      },
+      "apply": {
+        "model": "chemica:block/conduit_side",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "connected_down": true
+      },
+      "apply": {
+        "model": "chemica:block/conduit_side"
+      }
+    }
+  ]
+}

@@ -7,13 +7,14 @@ import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.container.PropertyDelegate;
+import team.teasanctuary.chemica.registry.Blocks;
 
 public class EnergyBoxEntity extends MachineBlockEntity {
 
     private final int transferRate = 60;
 
     public EnergyBoxEntity() {
-        super(ModMain.ENERGY_BOX_ENTITY, 500000, true, 2);
+        super(Blocks.ENERGY_BOX_ENTITY, 500000, true, 2);
     }
 
     @Override

@@ -15,6 +15,7 @@ import net.minecraft.util.Identifier;
 import team.teasanctuary.chemica.gui.SolidFuelGeneratorController;
 import team.teasanctuary.chemica.gui.TesterItemController;
 import team.teasanctuary.chemica.items.TesterItem;
+import team.teasanctuary.chemica.registry.Blocks;
 
 public class ClientMain implements ClientModInitializer {
 
@@ -23,11 +24,11 @@ public class ClientMain implements ClientModInitializer {
     public static final Identifier ENERGY_BAR_BG_TEXTURE = new Identifier("chemica", "textures/gui/energybar.png");
     public static final Identifier ENERGY_BAR_TEXTURE = new Identifier("chemica", "textures/gui/energychemica.png");
     public static final Identifier SECONDARY_PRODUCT_ARROW = new Identifier("chemica", "textures/gui/secondary_product_arrow.png");
-    public static final Identifier CRUSHER_CRUSH_BUTTON_PACKET_ID = new Identifier("chemica", "crusher_crush_button_pressed");
 
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(ModMain.CRANK_BLOCK, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.CRANK_BLOCK, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.CONDUIT_BLOCK, RenderLayer.getCutout());
 
         ScreenProviderRegistry.INSTANCE.registerFactory(TesterItem.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<TesterItemController>(new TesterItemController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
         ScreenProviderRegistry.INSTANCE.registerFactory(EnergyBoxBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<EnergyBoxController>(new EnergyBoxController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));

@@ -4,10 +4,13 @@
   "block.chemica.crusher": "Crusher",
   "block.chemica.energy_box": "Energy Box",
   "itemGroup.chemica.general": "Chemica: General",
+  "itemGroup.chemica.ores": "Chemica: Ores",
   "item.chemica.screwdriver": "Screwdriver",
   "item.chemica.battery": "Battery",
   "item.chemica.tester": "Tester",
   "block.chemica.crank": "Crank",
+  "block.chemica.malachite_ore": "Malachite Ore",
+  "item.chemica.copper_ingot": "Copper Ingot",
   "block.chemica.solid_fuel_generator": "Solid Fuel Generator",
   "chemica.tooltip.battery.stored": "Stored: %d/%d J"
 }

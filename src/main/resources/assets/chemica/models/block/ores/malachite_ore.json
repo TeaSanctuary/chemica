@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chemica:block/malachite_ore",
+    "up": "chemica:block/malachite_ore",
+    "north": "chemica:block/malachite_ore",
+    "east": "chemica:block/malachite_ore",
+    "west": "chemica:block/malachite_ore",
+    "south": "chemica:block/malachite_ore",
+    "particle": "block/stone"
+  }
+}
