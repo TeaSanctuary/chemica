@@ -1,0 +1,11 @@
+{
+  "type": "chemica:crusher_recipe",
+  "ingredient": {
+    "item": "minecraft:gold_ore"
+  },
+  "result": {
+    "item": "chemica:gold_ore_dust",
+    "count": 1
+  },
+  "ticks": 100
+}

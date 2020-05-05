@@ -1,0 +1,11 @@
+{
+  "type": "chemica:crusher_recipe",
+  "ingredient": {
+    "item": "chemica:sphalerite_ore"
+  },
+  "result": {
+    "item": "chemica:sphalerite_ore_dust",
+    "count": 1
+  },
+  "ticks": 100
+}

@@ -28,7 +28,12 @@ public class CrusherBlockEntity extends MachineBlockEntity implements ICrankable
 
             @Override
             public void set(int index, int value) {
-
+                switch (index) {
+                    case 0: energy.setEnergy(0);
+                    break;
+                    case 1: energy.setCapacity(value);
+                    break;
+                }
             }
 
             @Override

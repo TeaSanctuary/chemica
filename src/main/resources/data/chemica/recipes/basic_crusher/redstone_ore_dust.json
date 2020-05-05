@@ -1,0 +1,11 @@
+{
+  "type": "chemica:crusher_recipe",
+  "ingredient": {
+    "item": "minecraft:redstone_ore"
+  },
+  "result": {
+    "item": "chemica:redstone_ore_dust",
+    "count": 1
+  },
+  "ticks": 100
+}

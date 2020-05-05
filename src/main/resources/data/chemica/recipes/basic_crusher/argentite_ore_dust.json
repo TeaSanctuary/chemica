@@ -1,0 +1,11 @@
+{
+  "type": "chemica:crusher_recipe",
+  "ingredient": {
+    "item": "chemica:argentite_ore"
+  },
+  "result": {
+    "item": "chemica:argentite_ore_dust",
+    "count": 1
+  },
+  "ticks": 100
+}

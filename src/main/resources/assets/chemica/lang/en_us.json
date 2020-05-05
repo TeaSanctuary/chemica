@@ -5,6 +5,8 @@
   "block.chemica.energy_box": "Energy Box",
   "itemGroup.chemica.general": "Chemica: General",
   "itemGroup.chemica.ores": "Chemica: Ores",
+  "itemGroup.chemica.materials": "Chemica: Materials",
+  "itemGroup.chemica.items": "Chemica: Items",
   "item.chemica.screwdriver": "Screwdriver",
   "item.chemica.battery": "Battery",
   "item.chemica.tester": "Tester",
@@ -31,5 +33,21 @@
   "block.chemica.silver_ore": "Silver Ore",
   "block.chemica.sphalerite_ore": "Sphalerite Ore",
   "block.chemica.zincite_ore": "Zincite Ore",
-  "block.chemica.cassiterite_ore": "Cassiterite Ore"
+  "block.chemica.cassiterite_ore": "Cassiterite Ore",
+  "item.chemica.argentite_ore_dust": "Argentite Ore Dust",
+  "item.chemica.chalcopyrite_ore_dust": "Chalcopyrite Ore Dust",
+  "item.chemica.galena_ore_dust": "Galena Ore Dust",
+  "item.chemica.cuprite_ore_dust": "Cuprite Ore Dust",
+  "item.chemica.rutile_ore_dust": "Rutile Ore Dust",
+  "item.chemica.pyrite_ore_dust": "Pyrite Ore Dust",
+  "item.chemica.silver_ore_dust": "Silver Ore Dust",
+  "item.chemica.sphalerite_ore_dust": "Sphalerite Ore Dust",
+  "item.chemica.zincite_ore_dust": "Zincite Ore Dust",
+  "item.chemica.cassiterite_ore_dust": "Cassiterite Ore Dust",
+  "item.chemica.coal_ore_dust": "Coal Ore Dust",
+  "item.chemica.diamond_ore_dust": "Diamond Ore Dust",
+  "item.chemica.gold_ore_dust": "Gold Ore Dust",
+  "item.chemica.redstone_ore_dust": "Redstone Ore Dust".
+  "item.chemica.iron_ore_dust": "Iron Ore Dust",
+  "item.chemica.malachite_ore_dust": "Malachite Ore Dust"
 }
