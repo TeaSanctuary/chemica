@@ -5,11 +5,12 @@ import team.teasanctuary.chemica.api.*;
 import net.minecraft.container.PropertyDelegate;
 import net.minecraft.item.ItemStack;
 import team.teasanctuary.chemica.recipes.CrusherRecipe;
+import team.teasanctuary.chemica.registry.Blocks;
 
 public class CrusherBlockEntity extends MachineBlockEntity implements ICrankable {
 
     public CrusherBlockEntity() {
-        super(ModMain.CRUSHER_BLOCK_ENTITY, 100, true, 2);
+        super(Blocks.CRUSHER_BLOCK_ENTITY, 100, true, 2);
     }
 
     @Override

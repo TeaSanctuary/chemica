@@ -9,6 +9,7 @@ import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.MachineBlockEntity;
 import team.teasanctuary.chemica.blocks.SolidFuelGeneratorBlock;
 import team.teasanctuary.chemica.recipes.GeneratorRecipe;
+import team.teasanctuary.chemica.registry.Blocks;
 
 public class SolidFuelGeneratorEntity extends MachineBlockEntity {
 
@@ -17,7 +18,7 @@ public class SolidFuelGeneratorEntity extends MachineBlockEntity {
     private boolean isBurning = false;
 
     public SolidFuelGeneratorEntity() {
-        super(ModMain.SOLID_FUEL_GENERATOR_ENTITY, 100000, true, 2);
+        super(Blocks.SOLID_FUEL_GENERATOR_ENTITY, 100000, true, 2);
     }
 
     @Override

@@ -9,10 +9,11 @@ import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.ICrankable;
 import team.teasanctuary.chemica.api.IEnergyStorage;
 import team.teasanctuary.chemica.api.IEnergyStorageHolder;
+import team.teasanctuary.chemica.registry.Blocks;
 
 public class CrankBlockEntity extends BlockEntity {
     public CrankBlockEntity() {
-        super(ModMain.CRANK_BLOCK_ENTITY);
+        super(Blocks.CRANK_BLOCK_ENTITY);
     }
 
     @Override

@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "chemica:malachite_ore"
+  },
+  "result": "chemica:copper_ingot"
+}
