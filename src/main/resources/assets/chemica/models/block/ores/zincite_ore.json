@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chemica:block/zincite_ore",
+    "up": "chemica:block/zincite_ore",
+    "north": "chemica:block/zincite_ore",
+    "east": "chemica:block/zincite_ore",
+    "west": "chemica:block/zincite_ore",
+    "south": "chemica:block/zincite_ore",
+    "particle": "block/stone"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chemica:block/silver_ore",
+    "up": "chemica:block/silver_ore",
+    "north": "chemica:block/silver_ore",
+    "east": "chemica:block/silver_ore",
+    "west": "chemica:block/silver_ore",
+    "south": "chemica:block/silver_ore",
+    "particle": "block/stone"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chemica:block/galena_ore",
+    "up": "chemica:block/galena_ore",
+    "north": "chemica:block/galena_ore",
+    "east": "chemica:block/galena_ore",
+    "west": "chemica:block/galena_ore",
+    "south": "chemica:block/galena_ore",
+    "particle": "block/stone"
+  }
+}

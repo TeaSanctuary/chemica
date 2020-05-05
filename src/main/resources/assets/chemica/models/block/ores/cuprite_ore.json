@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chemica:block/cuprite_ore",
+    "up": "chemica:block/cuprite_ore",
+    "north": "chemica:block/cuprite_ore",
+    "east": "chemica:block/cuprite_ore",
+    "west": "chemica:block/cuprite_ore",
+    "south": "chemica:block/cuprite_ore",
+    "particle": "block/stone"
+  }
+}

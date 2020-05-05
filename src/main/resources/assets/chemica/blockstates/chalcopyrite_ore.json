@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "chemica:block/ores/chalcopyrite_ore" }
+  }
+}

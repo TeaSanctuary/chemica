@@ -24,10 +24,138 @@ public class Generation {
                                     3 //Ore vein size
                             )).createDecoratedFeature(
                             Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(
-                                    8, //Number of veins per chunk
+                                    5, //Number of veins per chunk
+                                    0, //Bottom Offset
+                                    50, //Min y level
+                                    75 //Max y level
+                            ))));
+            biome.addFeature(
+                    GenerationStep.Feature.UNDERGROUND_ORES,
+                    Feature.ORE.configure(
+                            new OreFeatureConfig(
+                                    OreFeatureConfig.Target.NATURAL_STONE,
+                                    Ores.ARGENTITE_ORE_BLOCK.getDefaultState(),
+                                    15 //Ore vein size
+                            )).createDecoratedFeature(
+                            Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(
+                                    1, //Number of veins per chunk
                                     0, //Bottom Offset
                                     0, //Min y level
-                                    64 //Max y level
+                                    75 //Max y level
+                            ))));
+            biome.addFeature(
+                    GenerationStep.Feature.UNDERGROUND_ORES,
+                    Feature.ORE.configure(
+                            new OreFeatureConfig(
+                                    OreFeatureConfig.Target.NATURAL_STONE,
+                                    Ores.CHALCOPYRITE_ORE_BLOCK.getDefaultState(),
+                                    25 //Ore vein size
+                            )).createDecoratedFeature(
+                            Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(
+                                    1, //Number of veins per chunk
+                                    0, //Bottom Offset
+                                    0, //Min y level
+                                    75 //Max y level
+                            ))));
+            biome.addFeature(
+                    GenerationStep.Feature.UNDERGROUND_ORES,
+                    Feature.ORE.configure(
+                            new OreFeatureConfig(
+                                    OreFeatureConfig.Target.NATURAL_STONE,
+                                    Ores.GALENA_ORE_BLOCK.getDefaultState(),
+                                    45 //Ore vein size
+                            )).createDecoratedFeature(
+                            Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(
+                                    1, //Number of veins per chunk
+                                    0, //Bottom Offset
+                                    0, //Min y level
+                                    75 //Max y level
+                            ))));
+            biome.addFeature(
+                    // TODO: Check if cuprite spawns with malachite
+                    GenerationStep.Feature.UNDERGROUND_ORES,
+                    Feature.ORE.configure(
+                            new OreFeatureConfig(
+                                    OreFeatureConfig.Target.NATURAL_STONE,
+                                    Ores.CUPRITE_ORE_BLOCK.getDefaultState(),
+                                    3 //Ore vein size
+                            )).createDecoratedFeature(
+                            Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(
+                                    5, //Number of veins per chunk
+                                    0, //Bottom Offset
+                                    50, //Min y level
+                                    75 //Max y level
+                            ))));
+            biome.addFeature(
+                    GenerationStep.Feature.UNDERGROUND_ORES,
+                    Feature.ORE.configure(
+                            new OreFeatureConfig(
+                                    OreFeatureConfig.Target.NATURAL_STONE,
+                                    Ores.RUTILE_ORE_BLOCK.getDefaultState(),
+                                    4 //Ore vein size
+                            )).createDecoratedFeature(
+                            Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(
+                                    1, //Number of veins per chunk
+                                    0, //Bottom Offset
+                                    0, //Min y level
+                                    20 //Max y level
+                            ))));
+            biome.addFeature(
+                    GenerationStep.Feature.UNDERGROUND_ORES,
+                    Feature.ORE.configure(
+                            new OreFeatureConfig(
+                                    OreFeatureConfig.Target.NATURAL_STONE,
+                                    Ores.SILVER_ORE_BLOCK.getDefaultState(),
+                                    3 //Ore vein size
+                            )).createDecoratedFeature(
+                            Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(
+                                    5, //Number of veins per chunk
+                                    0, //Bottom Offset
+                                    10, //Min y level
+                                    40 //Max y level
+                            ))));
+            biome.addFeature(
+                    GenerationStep.Feature.UNDERGROUND_ORES,
+                    Feature.ORE.configure(
+                            new OreFeatureConfig(
+                                    OreFeatureConfig.Target.NATURAL_STONE,
+                                    Ores.SPHALERITE_ORE_BLOCK.getDefaultState(),
+                                    30 //Ore vein size
+                            )).createDecoratedFeature(
+                            Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(
+                                    1, //Number of veins per chunk
+                                    0, //Bottom Offset
+                                    0, //Min y level
+                                    75 //Max y level
+                            ))));
+            biome.addFeature(
+                    // TODO: Check if zincite spaws with sphalerite
+                    GenerationStep.Feature.UNDERGROUND_ORES,
+                    Feature.ORE.configure(
+                            new OreFeatureConfig(
+                                    OreFeatureConfig.Target.NATURAL_STONE,
+                                    Ores.ZINCITE_ORE_BLOCK.getDefaultState(),
+                                    30 //Ore vein size
+                            )).createDecoratedFeature(
+                            Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(
+                                    1, //Number of veins per chunk
+                                    0, //Bottom Offset
+                                    0, //Min y level
+                                    75 //Max y level
+                            ))));
+            biome.addFeature(
+                    GenerationStep.Feature.UNDERGROUND_ORES,
+                    Feature.ORE.configure(
+                            new OreFeatureConfig(
+                                    OreFeatureConfig.Target.NATURAL_STONE,
+                                    Ores.CASSITERITE_ORE_BLOCK.getDefaultState(),
+                                    5 //Ore vein size
+                            )).createDecoratedFeature(
+                            Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(
+                                    10, //Number of veins per chunk
+                                    0, //Bottom Offset
+                                    0, //Min y level
+                                    50 //Max y level
                             ))));
         }
     }

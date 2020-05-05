@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chemica:block/rutile_ore",
+    "up": "chemica:block/rutile_ore",
+    "north": "chemica:block/rutile_ore",
+    "east": "chemica:block/rutile_ore",
+    "west": "chemica:block/rutile_ore",
+    "south": "chemica:block/rutile_ore",
+    "particle": "block/stone"
+  }
+}
