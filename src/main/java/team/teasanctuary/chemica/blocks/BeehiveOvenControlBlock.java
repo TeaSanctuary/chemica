@@ -3,9 +3,13 @@ package team.teasanctuary.chemica.blocks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.RedstoneTorchBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
@@ -16,6 +20,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -99,5 +104,18 @@ public class BeehiveOvenControlBlock extends MachineBlock implements BlockEntity
 
         player.swingHand(Hand.MAIN_HAND);
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public void onBlockRemoved(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        if (state.getBlock() != newState.getBlock()) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof BeehiveOvenControlBlockEntity) {
+                ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
+                world.updateHorizontalAdjacent(pos, this);
+            }
+
+            super.onBlockRemoved(state, world, pos, newState, moved);
+        }
     }
 }

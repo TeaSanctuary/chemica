@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "chemica:block/fireproof_bricks", "uvlock": true }
+  }
+}

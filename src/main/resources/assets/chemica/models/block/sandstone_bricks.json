@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chemica:block/sandstone_bricks",
+    "up": "chemica:block/sandstone_bricks",
+    "north": "chemica:block/sandstone_bricks",
+    "east": "chemica:block/sandstone_bricks",
+    "west": "chemica:block/sandstone_bricks",
+    "south": "chemica:block/sandstone_bricks",
+    "particle": "block/sand"
+  }
+}

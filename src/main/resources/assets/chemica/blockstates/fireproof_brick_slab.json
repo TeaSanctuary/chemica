@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "chemica:block/fireproof_brick_slab" },
+    "type=top": { "model": "chemica:block/fireproof_brick_slab_top" },
+    "type=double": { "model": "chemica:block/fireproof_bricks" }
+  }
+}
