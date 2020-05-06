@@ -14,7 +14,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import team.teasanctuary.chemica.gui.SolidFuelGeneratorController;
 import team.teasanctuary.chemica.gui.TesterItemController;
+import team.teasanctuary.chemica.gui.BeehiveOvenController;
 import team.teasanctuary.chemica.items.TesterItem;
+import team.teasanctuary.chemica.recipes.BeehiveOvenRecipe;
 import team.teasanctuary.chemica.recipes.CrusherRecipe;
 import team.teasanctuary.chemica.recipes.GeneratorRecipe;
 import team.teasanctuary.chemica.registry.*;
@@ -32,6 +34,13 @@ public class ModMain implements ModInitializer {
 		@Override
 		public String toString () {
 			return GeneratorRecipe.ID.toString();
+		}
+	};
+
+	public static final RecipeType<BeehiveOvenRecipe> BEEHIVE_OVEN_RECIPE_TYPE = new RecipeType<BeehiveOvenRecipe>() {
+		@Override
+		public String toString () {
+			return BeehiveOvenRecipe.ID.toString();
 		}
 	};
 
@@ -54,9 +63,13 @@ public class ModMain implements ModInitializer {
 		Registry.register(Registry.RECIPE_TYPE, GeneratorRecipe.ID, GENERATOR_RECIPE);
 		Registry.register(Registry.RECIPE_SERIALIZER, GeneratorRecipe.ID, GeneratorRecipe.SERIALIZER);
 
+		Registry.register(Registry.RECIPE_TYPE, BeehiveOvenRecipe.ID, BEEHIVE_OVEN_RECIPE_TYPE);
+		Registry.register(Registry.RECIPE_SERIALIZER, BeehiveOvenRecipe.ID, BeehiveOvenRecipe.SERIALIZER);
+
 		ContainerProviderRegistry.INSTANCE.registerFactory(EnergyBoxBlock.ID, (syncId, id, player, buf) -> new EnergyBoxController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
 		ContainerProviderRegistry.INSTANCE.registerFactory(CrusherBlock.ID, (syncId, id, player, buf) -> new CrusherBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
 		ContainerProviderRegistry.INSTANCE.registerFactory(TesterItem.ID, (syncId, id, player, buf) -> new TesterItemController(syncId, player.inventory, BlockContext.create(player.world, player.getBlockPos())));
 		ContainerProviderRegistry.INSTANCE.registerFactory(SolidFuelGeneratorBlock.ID, (syncId, id, player, buf) -> new SolidFuelGeneratorController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
+		ContainerProviderRegistry.INSTANCE.registerFactory(BeehiveOvenControlBlock.ID, (syncId, id, player, buf) -> new BeehiveOvenController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
 	}
 }

@@ -1,6 +1,7 @@
 {
   "chemica.tooltip.battery_block.energyTooltip": "%d/%d J",
   "chemica.tooltip.crusher.crush_button_text": "Crush!",
+  "chemica.tooltip.beehive_oven.temperatureTooltip": "%d/%d °C",
   "block.chemica.crusher": "Crusher",
   "block.chemica.energy_box": "Energy Box",
   "itemGroup.chemica.general": "Chemica: General",

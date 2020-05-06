@@ -16,12 +16,15 @@ public class Blocks {
     public static CrankBlock CRANK_BLOCK = new CrankBlock(FabricBlockSettings.of(Material.WOOD).hardness(1.f).nonOpaque().build());
     public static SolidFuelGeneratorBlock SOLID_FUEL_GENERATOR_BLOCK = new SolidFuelGeneratorBlock(FabricBlockSettings.of(Material.METAL).hardness(2.5f).build());
     public static ConduitBlock CONDUIT_BLOCK;
+    public static BeehiveOvenBricksBlock BEEHIVE_OVEN_BRICKS_BLOCK;
+    public static BeehiveOvenControlBlock BEEHIVE_OVEN_CONTROL_BLOCK;
 
     public static BlockEntityType<EnergyBoxEntity> ENERGY_BOX_ENTITY;
     public static BlockEntityType<CrusherBlockEntity> CRUSHER_BLOCK_ENTITY;
     public static BlockEntityType<CrankBlockEntity> CRANK_BLOCK_ENTITY;
     public static BlockEntityType<SolidFuelGeneratorEntity> SOLID_FUEL_GENERATOR_ENTITY;
     public static BlockEntityType<ConduitBlockEntity> CONDUIT_BLOCK_ENTITY;
+    public static BlockEntityType<BeehiveOvenControlBlockEntity> BEEHIVE_OVEN_CONTROL_BLOCK_ENTITY;
 
     public static void init() {
         ENERGY_BOX_BLOCK = new EnergyBoxBlock(FabricBlockSettings.of(Material.METAL).hardness(2.5f).build());
@@ -29,6 +32,8 @@ public class Blocks {
         CRANK_BLOCK = new CrankBlock(FabricBlockSettings.of(Material.WOOD).hardness(1.f).nonOpaque().build());
         SOLID_FUEL_GENERATOR_BLOCK = new SolidFuelGeneratorBlock(FabricBlockSettings.of(Material.METAL).hardness(2.5f).build());
         CONDUIT_BLOCK = new ConduitBlock(FabricBlockSettings.of(Material.METAL).hardness(1.f).nonOpaque().build());
+        BEEHIVE_OVEN_BRICKS_BLOCK = new BeehiveOvenBricksBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
+        BEEHIVE_OVEN_CONTROL_BLOCK = new BeehiveOvenControlBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
 
         register();
     }
@@ -58,5 +63,13 @@ public class Blocks {
         Registry.register(Registry.ITEM, EnergyBoxBlock.ID, new BlockItem(ENERGY_BOX_BLOCK, new Item.Settings().group(ModMain.CHEMICA_GENERAL)));
         ENERGY_BOX_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, EnergyBoxBlock.ID,
                 BlockEntityType.Builder.create(EnergyBoxEntity::new, ENERGY_BOX_BLOCK).build(null));
+
+        Registry.register(Registry.BLOCK, BeehiveOvenBricksBlock.ID, BEEHIVE_OVEN_BRICKS_BLOCK);
+        Registry.register(Registry.ITEM, BeehiveOvenBricksBlock.ID, new BlockItem(BEEHIVE_OVEN_BRICKS_BLOCK, new Item.Settings().group(ModMain.CHEMICA_GENERAL)));
+
+        Registry.register(Registry.BLOCK, BeehiveOvenControlBlock.ID, BEEHIVE_OVEN_CONTROL_BLOCK);
+        Registry.register(Registry.ITEM, BeehiveOvenControlBlock.ID, new BlockItem(BEEHIVE_OVEN_CONTROL_BLOCK, new Item.Settings().group(ModMain.CHEMICA_GENERAL)));
+        BEEHIVE_OVEN_CONTROL_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, BeehiveOvenControlBlock.ID,
+                BlockEntityType.Builder.create(BeehiveOvenControlBlockEntity::new, BEEHIVE_OVEN_CONTROL_BLOCK).build(null));
     }
 }

@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,lit=false": { "model": "chemica:block/beehive_oven_control", "uvlock": true, "y": 0 },
+    "facing=east,lit=false": { "model": "chemica:block/beehive_oven_control", "uvlock": true, "y": 90 },
+    "facing=south,lit=false": { "model": "chemica:block/beehive_oven_control", "uvlock": true, "y": 180 },
+    "facing=west,lit=false": { "model": "chemica:block/beehive_oven_control", "uvlock": true, "y": 270 },
+    "facing=north,lit=true": { "model": "chemica:block/beehive_oven_control_on", "uvlock": true, "y": 0 },
+    "facing=east,lit=true": { "model": "chemica:block/beehive_oven_control_on", "uvlock": true, "y": 90 },
+    "facing=south,lit=true": { "model": "chemica:block/beehive_oven_control_on", "uvlock": true, "y": 180 },
+    "facing=west,lit=true": { "model": "chemica:block/beehive_oven_control_on", "uvlock": true, "y": 270 }
+  }
+}
