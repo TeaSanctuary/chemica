@@ -15,6 +15,7 @@
   "block.chemica.malachite_ore": "Malachite Ore",
   "item.chemica.copper_ingot": "Copper Ingot",
   "block.chemica.solid_fuel_generator": "Solid Fuel Generator",
+  "block.chemica.stone_alloy_smelter": "Stone Alloy Smelter",
   "chemica.tooltip.battery.stored": "Stored: %d/%d J",
   "item.chemica.aluminum_ingot": "Aluminum Ingot",
   "item.chemica.bronze_ingot": "Bronze Ingot",
