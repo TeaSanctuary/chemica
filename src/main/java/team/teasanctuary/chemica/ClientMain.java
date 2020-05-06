@@ -4,6 +4,7 @@ import io.github.cottonmc.cotton.gui.client.CottonInventoryScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.render.RenderLayer;
+import team.teasanctuary.chemica.blocks.BeehiveOvenControlBlock;
 import team.teasanctuary.chemica.blocks.EnergyBoxBlock;
 import team.teasanctuary.chemica.blocks.CrusherBlock;
 import team.teasanctuary.chemica.blocks.SolidFuelGeneratorBlock;
@@ -34,6 +35,7 @@ public class ClientMain implements ClientModInitializer {
         ScreenProviderRegistry.INSTANCE.registerFactory(EnergyBoxBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<EnergyBoxController>(new EnergyBoxController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
         ScreenProviderRegistry.INSTANCE.registerFactory(CrusherBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<CrusherBlockController>(new CrusherBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
         ScreenProviderRegistry.INSTANCE.registerFactory(SolidFuelGeneratorBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<SolidFuelGeneratorController>(new SolidFuelGeneratorController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
+        ScreenProviderRegistry.INSTANCE.registerFactory(BeehiveOvenControlBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<BeehiveOvenController>(new BeehiveOvenController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
         ScreenProviderRegistry.INSTANCE.registerFactory(StoneAlloySmelterBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<StoneAlloySmelterController>(new StoneAlloySmelterController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
     }
 }

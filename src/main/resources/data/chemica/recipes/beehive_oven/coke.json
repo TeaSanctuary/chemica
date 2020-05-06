@@ -1,0 +1,13 @@
+{
+  "type": "chemica:beehive_oven_recipe",
+  "ingredient": {
+    "item": "minecraft:coal"
+  },
+  "result": {
+    "item": "minecraft:dirt",
+    "count": 1
+  },
+  "burnTime": 40,
+  "threshold": 1000,
+  "tempIncrease": 200
+}

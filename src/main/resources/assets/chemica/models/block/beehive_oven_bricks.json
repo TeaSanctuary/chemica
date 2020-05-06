@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "chemica:block/beehive_oven_bricks"
+  }
+}
