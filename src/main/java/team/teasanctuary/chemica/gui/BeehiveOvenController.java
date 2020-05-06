@@ -25,8 +25,9 @@ public class BeehiveOvenController extends CottonCraftingController {
         tempBar.withTooltip("chemica.tooltip.beehive_oven.temperatureTooltip");
         root.add(tempBar, 16, 0, 1, 8);
 
-        // TODO: add cool arrow
-        WBar progressBar = new WBar(null, null, 3, 4, WBar.Direction.RIGHT);
+        WBar progressBar = new WBar(new Identifier("chemica", "textures/gui/progress_arrow_bg.png"),
+                new Identifier("chemica", "textures/gui/progress_arrow_fg.png"),
+                3, 4, WBar.Direction.RIGHT);
         root.add(progressBar, 6, 4, 5, 2);
 
         root.add(new WToggle(new Identifier("chemica", "textures/gui/toggle.png"), 32, 16, 16, 0), 0, 8);

@@ -6,7 +6,6 @@ import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.container.PropertyDelegate;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Ingredient;
@@ -19,7 +18,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.ImplementedInventory;
-import team.teasanctuary.chemica.blocks.BeehiveOvenBricksBlock;
 import team.teasanctuary.chemica.blocks.BeehiveOvenControlBlock;
 import team.teasanctuary.chemica.recipes.BeehiveOvenRecipe;
 import team.teasanctuary.chemica.registry.Blocks;
@@ -46,35 +44,35 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
     private static final Identifier[][][] STRUCTURE = {
             {
                     {
-                            IGNORE_BLOCK, BeehiveOvenBricksBlock.ID, IGNORE_BLOCK
+                            IGNORE_BLOCK, Blocks.FIREPROOF_BRICKS_BLOCK_ID, IGNORE_BLOCK
                     },
                     {
-                            BeehiveOvenBricksBlock.ID, BeehiveOvenBricksBlock.ID, BeehiveOvenBricksBlock.ID
+                            Blocks.FIREPROOF_BRICKS_BLOCK_ID, Blocks.FIREPROOF_BRICKS_BLOCK_ID, Blocks.FIREPROOF_BRICKS_BLOCK_ID
                     },
                     {
-                            BeehiveOvenBricksBlock.ID, IGNORE_BLOCK, BeehiveOvenBricksBlock.ID
+                            Blocks.FIREPROOF_BRICKS_BLOCK_ID, IGNORE_BLOCK, Blocks.FIREPROOF_BRICKS_BLOCK_ID
                     }
             },
             {
                     {
-                            BeehiveOvenBricksBlock.ID, BeehiveOvenBricksBlock.ID, BeehiveOvenBricksBlock.ID
+                            Blocks.FIREPROOF_BRICKS_BLOCK_ID, Blocks.FIREPROOF_BRICKS_BLOCK_ID, Blocks.FIREPROOF_BRICKS_BLOCK_ID
                     },
                     {
-                            BeehiveOvenBricksBlock.ID, new Identifier("minecraft", "air"), BeehiveOvenBricksBlock.ID
+                            Blocks.FIREPROOF_BRICKS_BLOCK_ID, new Identifier("minecraft", "air"), Blocks.FIREPROOF_BRICKS_BLOCK_ID
                     },
                     {
-                            BeehiveOvenBricksBlock.ID, BeehiveOvenBricksBlock.ID, BeehiveOvenBricksBlock.ID
+                            Blocks.FIREPROOF_BRICKS_BLOCK_ID, Blocks.FIREPROOF_BRICKS_BLOCK_ID, Blocks.FIREPROOF_BRICKS_BLOCK_ID
                     }
             },
             {
                     {
-                            IGNORE_BLOCK, BeehiveOvenBricksBlock.ID, IGNORE_BLOCK
+                            IGNORE_BLOCK, Blocks.FIREPROOF_BRICKS_BLOCK_ID, IGNORE_BLOCK
                     },
                     {
-                            BeehiveOvenBricksBlock.ID, BeehiveOvenBricksBlock.ID, BeehiveOvenBricksBlock.ID
+                            Blocks.FIREPROOF_BRICKS_BLOCK_ID, Blocks.FIREPROOF_BRICKS_BLOCK_ID, Blocks.FIREPROOF_BRICKS_BLOCK_ID
                     },
                     {
-                            BeehiveOvenBricksBlock.ID, BeehiveOvenBricksBlock.ID, BeehiveOvenBricksBlock.ID
+                            Blocks.FIREPROOF_BRICKS_BLOCK_ID, Blocks.FIREPROOF_BRICKS_BLOCK_ID, Blocks.FIREPROOF_BRICKS_BLOCK_ID
                     }
             }
     };

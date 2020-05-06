@@ -1,9 +1,9 @@
 {
   "parent": "block/orientable",
   "textures": {
-    "top": "chemica:block/beehive_oven_bricks",
-    "bottom": "chemica:block/beehive_oven_bricks",
-    "side": "chemica:block/beehive_oven_bricks",
+    "top": "chemica:block/fireproof_bricks",
+    "bottom": "chemica:block/fireproof_bricks",
+    "side": "chemica:block/fireproof_bricks",
     "front": "chemica:block/beehive_oven_control_on"
   }
 }

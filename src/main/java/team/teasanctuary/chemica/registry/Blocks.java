@@ -1,15 +1,19 @@
 package team.teasanctuary.chemica.registry;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import team.teasanctuary.chemica.ModMain;
+import team.teasanctuary.chemica.api.CustomStairsBlock;
 import team.teasanctuary.chemica.blocks.*;
+import team.teasanctuary.chemica.blocks.ConduitBlock;
 import team.teasanctuary.chemica.entities.*;
 
 public class Blocks {
@@ -18,10 +22,17 @@ public class Blocks {
     public static CrankBlock CRANK_BLOCK;
     public static SolidFuelGeneratorBlock SOLID_FUEL_GENERATOR_BLOCK;
     public static ConduitBlock CONDUIT_BLOCK;
-    public static BeehiveOvenBricksBlock BEEHIVE_OVEN_BRICKS_BLOCK;
     public static BeehiveOvenControlBlock BEEHIVE_OVEN_CONTROL_BLOCK;
     public static StoneAlloySmelterBlock STONE_ALLOY_SMELTER_BLOCK;
+
+    public static Block FIREPROOF_BRICKS_BLOCK;
+    public static SlabBlock FIREPROOF_BRICK_SLAB;
+    public static StairsBlock FIREPROOF_BRICK_STAIRS;
+    public static WallBlock FIREPROOF_BRICK_WALL;
+
     public static Block BAUXITE_BLOCK;
+
+    public static Block SANDSTONE_BRICKS_BLOCK;
 
     public static BlockEntityType<EnergyBoxEntity> ENERGY_BOX_ENTITY;
     public static BlockEntityType<CrusherBlockEntity> CRUSHER_BLOCK_ENTITY;
@@ -31,23 +42,56 @@ public class Blocks {
     public static BlockEntityType<BeehiveOvenControlBlockEntity> BEEHIVE_OVEN_CONTROL_BLOCK_ENTITY;
     public static BlockEntityType<StoneAlloySmelterEntity> STONE_ALLOY_SMELTER_ENTITY;
 
+    public static final Identifier BAUXITE_BLOCK_ID = new Identifier("chemica", "bauxite");
+
+    public static final Identifier FIREPROOF_BRICKS_BLOCK_ID = new Identifier("chemica", "fireproof_bricks");
+    public static final Identifier FIREPROOF_BRICK_SLAB_ID = new Identifier("chemica", "fireproof_brick_slab");
+    public static final Identifier FIREPROOF_BRICK_STAIRS_ID = new Identifier("chemica", "fireproof_brick_stairs");
+    public static final Identifier FIREPROOF_BRICK_WALL_ID = new Identifier("chemica", "fireproof_brick_wall");
+
+    public static final Identifier SANDSTONE_BRICKS_BLOCK_ID = new Identifier("chemica", "sandstone_bricks");
+
+    public static final ItemGroup CHEMICA_BUILDING_BLOCKS = FabricItemGroupBuilder.create(
+            new Identifier("chemica", "building_blocks"))
+            .icon(() -> new ItemStack(SANDSTONE_BRICKS_BLOCK))
+            .build();
+
     public static void init() {
         ENERGY_BOX_BLOCK = new EnergyBoxBlock(FabricBlockSettings.of(Material.METAL).hardness(2.5f).build());
         CRUSHER_BLOCK = new CrusherBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
         CRANK_BLOCK = new CrankBlock(FabricBlockSettings.of(Material.WOOD).hardness(1.f).nonOpaque().build());
         SOLID_FUEL_GENERATOR_BLOCK = new SolidFuelGeneratorBlock(FabricBlockSettings.of(Material.METAL).hardness(2.5f).build());
         CONDUIT_BLOCK = new ConduitBlock(FabricBlockSettings.of(Material.METAL).hardness(1.f).nonOpaque().build());
-        BEEHIVE_OVEN_BRICKS_BLOCK = new BeehiveOvenBricksBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
-        BEEHIVE_OVEN_CONTROL_BLOCK = new BeehiveOvenControlBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
+        BEEHIVE_OVEN_CONTROL_BLOCK = new BeehiveOvenControlBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).lightLevel(13).build());
         STONE_ALLOY_SMELTER_BLOCK = new StoneAlloySmelterBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
+
+        FIREPROOF_BRICKS_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
+        FIREPROOF_BRICK_SLAB = new SlabBlock(FabricBlockSettings.copy(FIREPROOF_BRICKS_BLOCK).build());
+        FIREPROOF_BRICK_STAIRS = new CustomStairsBlock(FIREPROOF_BRICKS_BLOCK.getDefaultState(), FabricBlockSettings.copy(FIREPROOF_BRICKS_BLOCK).build());
+        FIREPROOF_BRICK_WALL = new WallBlock(FabricBlockSettings.copy(FIREPROOF_BRICKS_BLOCK).build());
+
         BAUXITE_BLOCK = new Block(FabricBlockSettings.of(Material.SAND).hardness(1.f).build());
+
+        SANDSTONE_BRICKS_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).hardness(1.f).build());
 
         register();
     }
 
     private static void register() {
-        Registry.register(Registry.BLOCK, new Identifier("chemica", "bauxite"), BAUXITE_BLOCK);
-        Registry.register(Registry.ITEM, new Identifier("chemica", "bauxite"), new BlockItem(BAUXITE_BLOCK, new Item.Settings().maxCount(1).group(ModMain.CHEMICA_GENERAL)));
+        Registry.register(Registry.BLOCK, BAUXITE_BLOCK_ID, BAUXITE_BLOCK);
+        Registry.register(Registry.ITEM, BAUXITE_BLOCK_ID, new BlockItem(BAUXITE_BLOCK, new Item.Settings().maxCount(64).group(CHEMICA_BUILDING_BLOCKS)));
+
+        Registry.register(Registry.BLOCK, FIREPROOF_BRICKS_BLOCK_ID, FIREPROOF_BRICKS_BLOCK);
+        Registry.register(Registry.ITEM, FIREPROOF_BRICKS_BLOCK_ID, new BlockItem(FIREPROOF_BRICKS_BLOCK, new Item.Settings().maxCount(64).group(CHEMICA_BUILDING_BLOCKS)));
+        Registry.register(Registry.BLOCK, FIREPROOF_BRICK_SLAB_ID, FIREPROOF_BRICK_SLAB);
+        Registry.register(Registry.ITEM, FIREPROOF_BRICK_SLAB_ID, new BlockItem(FIREPROOF_BRICK_SLAB, new Item.Settings().maxCount(64).group(CHEMICA_BUILDING_BLOCKS)));
+        Registry.register(Registry.BLOCK, FIREPROOF_BRICK_STAIRS_ID, FIREPROOF_BRICK_STAIRS);
+        Registry.register(Registry.ITEM, FIREPROOF_BRICK_STAIRS_ID, new BlockItem(FIREPROOF_BRICK_STAIRS, new Item.Settings().maxCount(64).group(CHEMICA_BUILDING_BLOCKS)));
+        Registry.register(Registry.BLOCK, FIREPROOF_BRICK_WALL_ID, FIREPROOF_BRICK_WALL);
+        Registry.register(Registry.ITEM, FIREPROOF_BRICK_WALL_ID, new BlockItem(FIREPROOF_BRICK_WALL, new Item.Settings().maxCount(64).group(CHEMICA_BUILDING_BLOCKS)));
+
+        Registry.register(Registry.BLOCK, SANDSTONE_BRICKS_BLOCK_ID, SANDSTONE_BRICKS_BLOCK);
+        Registry.register(Registry.ITEM, SANDSTONE_BRICKS_BLOCK_ID, new BlockItem(SANDSTONE_BRICKS_BLOCK, new Item.Settings().maxCount(64).group(CHEMICA_BUILDING_BLOCKS)));
 
         Registry.register(Registry.BLOCK, StoneAlloySmelterBlock.ID, STONE_ALLOY_SMELTER_BLOCK);
         Registry.register(Registry.ITEM, StoneAlloySmelterBlock.ID, new BlockItem(STONE_ALLOY_SMELTER_BLOCK, new Item.Settings().maxCount(1).group(ModMain.CHEMICA_GENERAL)));
@@ -78,9 +122,6 @@ public class Blocks {
         Registry.register(Registry.ITEM, EnergyBoxBlock.ID, new BlockItem(ENERGY_BOX_BLOCK, new Item.Settings().group(ModMain.CHEMICA_GENERAL)));
         ENERGY_BOX_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, EnergyBoxBlock.ID,
                 BlockEntityType.Builder.create(EnergyBoxEntity::new, ENERGY_BOX_BLOCK).build(null));
-
-        Registry.register(Registry.BLOCK, BeehiveOvenBricksBlock.ID, BEEHIVE_OVEN_BRICKS_BLOCK);
-        Registry.register(Registry.ITEM, BeehiveOvenBricksBlock.ID, new BlockItem(BEEHIVE_OVEN_BRICKS_BLOCK, new Item.Settings().group(ModMain.CHEMICA_GENERAL)));
 
         Registry.register(Registry.BLOCK, BeehiveOvenControlBlock.ID, BEEHIVE_OVEN_CONTROL_BLOCK);
         Registry.register(Registry.ITEM, BeehiveOvenControlBlock.ID, new BlockItem(BEEHIVE_OVEN_CONTROL_BLOCK, new Item.Settings().group(ModMain.CHEMICA_GENERAL)));
