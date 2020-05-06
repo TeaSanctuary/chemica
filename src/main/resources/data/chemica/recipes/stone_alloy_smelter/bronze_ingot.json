@@ -1,0 +1,16 @@
+{
+  "type": "chemica:stone_alloy_smelter_recipe",
+  "ingredient": {
+    "item": "chemica:copper_ingot",
+    "count": 3
+  },
+  "ingredient2": {
+    "item": "chemica:tin_ingot",
+    "count": 1
+  },
+  "result": {
+    "item": "chemica:bronze_ingot",
+    "count": 4
+  },
+  "cookTime": 200
+}

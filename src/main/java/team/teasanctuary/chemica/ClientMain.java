@@ -7,23 +7,23 @@ import net.minecraft.client.render.RenderLayer;
 import team.teasanctuary.chemica.blocks.EnergyBoxBlock;
 import team.teasanctuary.chemica.blocks.CrusherBlock;
 import team.teasanctuary.chemica.blocks.SolidFuelGeneratorBlock;
-import team.teasanctuary.chemica.gui.EnergyBoxController;
-import team.teasanctuary.chemica.gui.CrusherBlockController;
+import team.teasanctuary.chemica.blocks.StoneAlloySmelterBlock;
+import team.teasanctuary.chemica.gui.*;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.minecraft.container.BlockContext;
 import net.minecraft.util.Identifier;
-import team.teasanctuary.chemica.gui.SolidFuelGeneratorController;
-import team.teasanctuary.chemica.gui.TesterItemController;
 import team.teasanctuary.chemica.items.TesterItem;
 import team.teasanctuary.chemica.registry.Blocks;
 
 public class ClientMain implements ClientModInitializer {
 
     public static final Identifier FIRE_BAR_BG_TEXTURE = new Identifier("chemica", "textures/gui/fire_bar_bg.png");
-    public static final Identifier FIRE_BAR_TEXTURE = new Identifier("chemica", "textures/gui/fire_bar.png");
+    public static final Identifier FIRE_BAR_TEXTURE = new Identifier("chemica", "textures/gui/fire_bar_fg.png");
     public static final Identifier ENERGY_BAR_BG_TEXTURE = new Identifier("chemica", "textures/gui/energybar.png");
     public static final Identifier ENERGY_BAR_TEXTURE = new Identifier("chemica", "textures/gui/energychemica.png");
     public static final Identifier SECONDARY_PRODUCT_ARROW = new Identifier("chemica", "textures/gui/secondary_product_arrow.png");
+    public static final Identifier PROGRESS_ARROW_TEXTURE = new Identifier("chemica", "textures/gui/progress_arrow_fg.png");
+    public static final Identifier PROGRESS_ARROW_BG_TEXTURE = new Identifier("chemica", "textures/gui/progress_arrow_bg.png");
 
     @Override
     public void onInitializeClient() {
@@ -34,5 +34,6 @@ public class ClientMain implements ClientModInitializer {
         ScreenProviderRegistry.INSTANCE.registerFactory(EnergyBoxBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<EnergyBoxController>(new EnergyBoxController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
         ScreenProviderRegistry.INSTANCE.registerFactory(CrusherBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<CrusherBlockController>(new CrusherBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
         ScreenProviderRegistry.INSTANCE.registerFactory(SolidFuelGeneratorBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<SolidFuelGeneratorController>(new SolidFuelGeneratorController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
+        ScreenProviderRegistry.INSTANCE.registerFactory(StoneAlloySmelterBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<StoneAlloySmelterController>(new StoneAlloySmelterController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
     }
 }
