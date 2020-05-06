@@ -4,10 +4,10 @@
     "item": "minecraft:coal"
   },
   "result": {
-    "item": "minecraft:dirt",
+    "item": "chemica:coke",
     "count": 1
   },
-  "burnTime": 40,
+  "burnTime": 1600,
   "threshold": 1000,
   "tempIncrease": 200
 }

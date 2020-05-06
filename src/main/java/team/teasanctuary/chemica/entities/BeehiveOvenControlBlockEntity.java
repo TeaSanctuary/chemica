@@ -6,6 +6,7 @@ import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.container.PropertyDelegate;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Ingredient;
@@ -173,7 +174,7 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
                     if (bt != -1) {
                         Identifier itemID = Registry.ITEM.getId(from.getItem());
                         recipe = new BeehiveOvenRecipe(new Identifier("chemica", "fallback_" + itemID.getNamespace() + "_" + itemID.getPath()),
-                                Ingredient.ofStacks(from), ItemStack.EMPTY, 20, maxTemperature + 1, (int) Math.ceil((double)bt / 50));
+                                Ingredient.ofStacks(from), ItemStack.EMPTY, 20, maxTemperature + 1, bt);
                     }
                 }
 
@@ -184,6 +185,7 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
                         isBurning = true;
                         temperatureIncrease += recipe.getTempIncrease();
                         threshold = recipe.getThreshold();
+                        output = recipe.getOutput();
                         world.setBlockState(pos, getCachedState().with(BeehiveOvenControlBlock.BURNING, false));
 
                         from.decrement(1);

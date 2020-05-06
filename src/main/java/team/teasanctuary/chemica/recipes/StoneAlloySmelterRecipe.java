@@ -22,7 +22,7 @@ public class StoneAlloySmelterRecipe implements Recipe<Inventory> {
     private final ItemStack input;
     private final ItemStack input2;
     private final ItemStack output;
-    private int cookTime;
+    private int cookTime = 0;
 
     public StoneAlloySmelterRecipe(Identifier id, ItemStack input, ItemStack input2, ItemStack output, int cookTime) {
         this.id = id;
@@ -34,8 +34,8 @@ public class StoneAlloySmelterRecipe implements Recipe<Inventory> {
 
     @Override
     public boolean matches(Inventory inv, World worldIn) {
-        return input != null && !this.input.isEmpty() && inv.getInvStack(0).getItem() == this.input.getItem() && inv.getInvStack(0).getCount() == this.input.getCount()
-                && this.input2 != null && !this.input2.isEmpty() && inv.getInvStack(1).getItem() == this.input2.getItem() && inv.getInvStack(1).getCount() == this.input2.getCount();
+        return input != null && !this.input.isEmpty() && inv.getInvStack(0).getItem() == this.input.getItem() && inv.getInvStack(0).getCount() >= this.input.getCount()
+                && this.input2 != null && !this.input2.isEmpty() && inv.getInvStack(1).getItem() == this.input2.getItem() && inv.getInvStack(1).getCount() >= this.input2.getCount();
     }
 
     @Override

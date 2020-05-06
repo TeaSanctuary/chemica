@@ -40,6 +40,8 @@ public class StoneAlloySmelterEntity extends BlockEntity implements ImplementedI
     public CompoundTag toTag(CompoundTag tag) {
         tag.putInt("recipeBurnTime", recipeBurnTime);
         tag.putInt("burnTime", burnTime);
+        tag.putInt("cookTime", cookTime);
+        tag.putInt("cookTimeTotal", cookTimeTotal);
         return super.toTag(tag);
     }
 
@@ -48,6 +50,8 @@ public class StoneAlloySmelterEntity extends BlockEntity implements ImplementedI
         super.fromTag(tag);
         recipeBurnTime = tag.getInt("recipeBurnTime");
         burnTime = tag.getInt("burnTime");
+        cookTime = tag.getInt("cookTime");
+        cookTimeTotal = tag.getInt("cookTimeTotal");
     }
 
     @Override
@@ -93,15 +97,17 @@ public class StoneAlloySmelterEntity extends BlockEntity implements ImplementedI
 
             ItemStack fuel = getInvStack(2);
 
-            if (!this.isBurning() && fuel.isEmpty() || (getInvStack(0).isEmpty() || getInvStack(1).isEmpty())) {
+            if (!this.isBurning() && fuel.isEmpty()) {
                 if (!this.isBurning() && this.cookTime > 0) {
                     this.cookTime = cookTimeTotal;
                 }
             } else {
                 StoneAlloySmelterRecipe recipe = this.world.getRecipeManager().getFirstMatch(ModMain.STONE_ALLOY_SMELTER_RECIPE, this, this.world).orElse(null);
-                if (!this.isBurning() && this.canRecieveOutput(recipe)) {
-                    this.burnTime = AbstractFurnaceBlockEntity.createFuelTimeMap().get(fuel.getItem());
-                    this.recipeBurnTime = this.burnTime;
+                if (cookTime <= 0 && this.canRecieveOutput(recipe) && recipe != null) {
+                    if (!this.isBurning()) {
+                        this.burnTime = AbstractFurnaceBlockEntity.createFuelTimeMap().get(fuel.getItem());
+                        this.recipeBurnTime = this.burnTime;
+                    }
                     if (this.isBurning()) {
                         if (!fuel.isEmpty()) {
                             fuel.decrement(1);
@@ -111,30 +117,34 @@ public class StoneAlloySmelterEntity extends BlockEntity implements ImplementedI
 
                         cookTime = 0;
                         cookTimeTotal = recipe.getCookTime();
+
                     }
                 }
 
-                if (this.isBurning() && this.canRecieveOutput(recipe)) {
-                    ++this.cookTime;
+                if (this.isBurning() && this.canRecieveOutput(recipe) && recipe != null) {
+                    if (this.cookTimeTotal > 0) {
+                        ++this.cookTime;
+                    }
                     if (this.cookTime == this.cookTimeTotal) {
                         this.cookTime = 0;
                         this.cookTimeTotal = 0;
 
+                        ItemStack out = getInvStack(3);
+
                         ItemStack from = getInvStack(0);
                         ItemStack from2 = getInvStack(1);
-                        ItemStack out = getInvStack(3);
 
                         ItemStack input1 = recipe.getInput();
                         ItemStack input2 = recipe.getInput2();
 
+                        from.decrement(input1.getCount());
+                        from2.decrement(input2.getCount());
+
                         if (out.isEmpty()) {
                             setInvStack(3, recipe.getOutput().copy());
                         } else if (out.getItem() == recipe.getOutput().getItem()) {
-                            out.increment(1);
+                            out.increment(recipe.getOutput().getCount());
                         }
-
-                        from.decrement(input1.getCount());
-                        from2.decrement(input2.getCount());
                     }
                 } else {
                     this.cookTime = 0;
