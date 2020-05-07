@@ -123,11 +123,17 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
             }
 
             tempTimer++;
-            if (!isBurning && temperature > 20) {
-                tempTimer %= 20 * 4;
-                if (tempTimer == 0)
-                    --temperature;
+            if (!isBurning) {
+                if (temperature > 20) {
+                    tempTimer %= 20 * 4;
+                    if (tempTimer == 0)
+                        --temperature;
+                }
+
+                if (burnTime > 0)
+                    burnTime = 0;
             }
+
             if (isBurning && temperature < maxTemperature) {
                 if (tempTimer % 10 == 0)
                     ++temperature;
@@ -136,8 +142,12 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
 
             ItemStack from = getInvStack(0);
             if (isBurning) {
-                ++burnTime;
-                if (burnTime >= recipeBurnTime) {
+                if (!isComplete)
+                    burnTime = 0;
+                else
+                    --burnTime;
+
+                if (burnTime <= 0) {
                     isBurning = false;
                     burnTime = 0;
                     recipeBurnTime = 0;
@@ -148,7 +158,6 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
                         else if (getInvStack(1).isEmpty()) {
                             ItemStack out = output.copy();
                             out.setCount(output.getCount());
-                            System.out.println(out);
                             setInvStack(1, out);
                         }
                         output = ItemStack.EMPTY;
@@ -169,16 +178,13 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
                     }
                 }
 
-                if (recipe != null) {
-                    if (canAcceptOutput(recipe)) {
-                        isBurning = true;
-                        burnTime = 0;
-                        recipeBurnTime = recipe.getBurnTime();
-                        threshold = recipe.getThreshold();
-                        output = recipe.getOutput();
-
-                        from.decrement(1);
-                    }
+                if (recipe != null && canAcceptOutput(recipe)) {
+                    isBurning = true;
+                    recipeBurnTime = recipe.getBurnTime();
+                    burnTime = recipeBurnTime;
+                    threshold = recipe.getThreshold();
+                    output = recipe.getOutput();
+                    from.decrement(1);
                 }
             }
         }
@@ -187,7 +193,7 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
     private boolean canAcceptOutput(BeehiveOvenRecipe recipe) {
         if (!this.items.get(0).isEmpty() && recipe != null) {
             ItemStack result = recipe.getOutput();
-            if (result.isEmpty()) return false;
+            if (result.isEmpty()) return true;
 
             ItemStack output = getInvStack(1);
             if (output.isEmpty()) return true;
@@ -199,10 +205,9 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
     }
 
     public void checkStructure() {
-        if (isBurning)
-            return;
-
-        checkStructureIntegrity();
+        if (!isBurning && hasWorld() && !getWorld().isClient) {
+            checkStructureIntegrity();
+        }
     }
 
     @Override
@@ -218,7 +223,10 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
         @Override
         public int get(int index) {
             switch (index) {
-                case 0: return (isComplete) ? 1 : 0;
+                case 0:
+                    if (tempTimer % 10 == 0) // check for integrity every 500 ms
+                        checkStructure();
+                    return (isComplete) ? 1 : 0;
                 case 1: return temperature;
                 case 2: return maxTemperature;
                 case 3: return burnTime;
@@ -231,7 +239,7 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
         public void set(int index, int value) {
             switch (index) {
                 case 0:
-                    isComplete = (value == 1);
+                    isComplete = (value > 0); // FIXME: why
                     break;
                 case 1:
                     temperature = value;
