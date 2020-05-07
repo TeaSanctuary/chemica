@@ -24,15 +24,13 @@ public class BeehiveOvenRecipe implements Recipe<Inventory> {
     private final ItemStack output;
     private final int burnTime;
     private final int threshold;
-    private final int tempIncrease;
 
-    public BeehiveOvenRecipe(Identifier id, Ingredient input, ItemStack output, int burnTime, int threshold, int tempIncrease) {
+    public BeehiveOvenRecipe(Identifier id, Ingredient input, ItemStack output, int burnTime, int threshold) {
         this.id = id;
         this.input = input;
         this.output = output;
         this.burnTime = burnTime;
         this.threshold = threshold;
-        this.tempIncrease = tempIncrease;
     }
 
     @Override
@@ -43,8 +41,6 @@ public class BeehiveOvenRecipe implements Recipe<Inventory> {
     public int getBurnTime() { return burnTime; }
 
     public int getThreshold() { return threshold; }
-
-    public int getTempIncrease() { return tempIncrease; }
 
     @Override
     public ItemStack craft(Inventory inv) {
@@ -86,8 +82,7 @@ public class BeehiveOvenRecipe implements Recipe<Inventory> {
             ItemStack output = getItemStack(JsonHelper.getObject(json, "result"));
             int burnTime = JsonHelper.getInt(json, "burnTime");
             int threshold = JsonHelper.getInt(json, "threshold");
-            int tempIncrease = JsonHelper.getInt(json, "tempIncrease");
-            return new BeehiveOvenRecipe(id, input, output, burnTime, threshold, tempIncrease);
+            return new BeehiveOvenRecipe(id, input, output, burnTime, threshold);
         }
 
         @Override
@@ -96,8 +91,7 @@ public class BeehiveOvenRecipe implements Recipe<Inventory> {
             ItemStack output = buf.readItemStack();
             int burnTime = buf.readVarInt();
             int threshold = buf.readVarInt();
-            int tempIncrease = buf.readVarInt();
-            return new BeehiveOvenRecipe(id, input, output, burnTime, threshold, tempIncrease);
+            return new BeehiveOvenRecipe(id, input, output, burnTime, threshold);
         }
 
         @Override
@@ -106,7 +100,6 @@ public class BeehiveOvenRecipe implements Recipe<Inventory> {
             buf.writeItemStack(recipe.output);
             buf.writeVarInt(recipe.burnTime);
             buf.writeVarInt(recipe.threshold);
-            buf.writeVarInt(recipe.tempIncrease);
         }
     }
 }

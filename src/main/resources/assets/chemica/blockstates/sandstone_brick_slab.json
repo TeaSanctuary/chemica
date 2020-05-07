@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "chemica:block/sandstone_brick_slab" },
+    "type=top": { "model": "chemica:block/sandstone_brick_slab_top" },
+    "type=double": { "model": "chemica:block/sandstone_bricks" }
+  }
+}
