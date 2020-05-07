@@ -8,6 +8,5 @@
     "count": 1
   },
   "burnTime": 1600,
-  "threshold": 1000,
-  "tempIncrease": 200
+  "threshold": 1000
 }

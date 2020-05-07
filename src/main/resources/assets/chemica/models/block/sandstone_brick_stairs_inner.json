@@ -1,0 +1,8 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "bottom": "chemica:block/sandstone_bricks",
+    "top": "chemica:block/sandstone_bricks",
+    "side": "chemica:block/sandstone_bricks"
+  }
+}
