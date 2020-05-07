@@ -6,23 +6,27 @@ import io.github.cottonmc.cotton.gui.client.ScreenDrawing;
 import io.github.cottonmc.cotton.gui.widget.WWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.container.PropertyDelegate;
 import net.minecraft.util.Identifier;
+
+import java.util.List;
 
 public class WToggle extends WWidget {
     protected PropertyDelegate properties;
     private final Identifier imageID;
     private final int elementWidth, elementHeight;
     private final float uvOffsetX;
+    private String[] toggleTooltip = new String[2];
 
     private final int state;
 
-    public WToggle(Identifier imageID, int textureWidth, int elementWidth, int elementHeight, int initialState) {
+    public WToggle(Identifier imageID, int textureWidth, int elementWidth, int elementHeight, int state) {
         this.imageID = imageID;
         this.elementWidth = elementWidth;
         this.elementHeight = elementHeight;
         this.uvOffsetX = (float) elementWidth / textureWidth;
-        this.state = initialState;
+        this.state = state;
     }
 
     public boolean canResize() {
@@ -43,7 +47,8 @@ public class WToggle extends WWidget {
 
     @Environment(EnvType.CLIENT)
     public void paintBackground(int x, int y) {
-        ScreenDrawing.texturedRect(x, y, elementWidth, elementHeight, imageID, uvOffsetX * (getState() ? 1 : 0), .0f, uvOffsetX * (getState() ? 2 : 1), 1.f, -1);
+        boolean st = getState();
+        ScreenDrawing.texturedRect(x, y, elementWidth, elementHeight, imageID, uvOffsetX * (st ? 1 : 0), .0f, uvOffsetX * (st ? 2 : 1), 1.f, -1);
     }
 
     public void createPeers(GuiDescription c) {
@@ -61,5 +66,21 @@ public class WToggle extends WWidget {
     public WToggle setProperties(PropertyDelegate properties) {
         this.properties = properties;
         return this;
+    }
+
+    public WToggle withTooltips(String falseTooltip, String trueTooltip) {
+        this.toggleTooltip = new String[]{falseTooltip, trueTooltip};
+        return this;
+    }
+
+    @Override
+    public void addInformation(List<String> information) {
+        String tooltipLabel = this.toggleTooltip[(getState()) ? 1 : 0];
+        if (tooltipLabel == null)
+            return;
+
+        String translated = I18n.translate(tooltipLabel);
+
+        information.add(translated);
     }
 }
