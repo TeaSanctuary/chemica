@@ -36,7 +36,6 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
 
     private int tempTimer = 0;
 
-    private static final int tempTransitionSpeed = 1;
     private static final int maxTemperature = 1200;
 
     private static final Identifier IGNORE_BLOCK = new Identifier("minecraft", "empty");
@@ -118,54 +117,50 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
 
         if (!getWorld().isClient) {
             if (isBurning) {
-                checkStructureIntegrity();
-                isBurning = isComplete;
+                isBurning = isComplete = checkStructureIntegrity();
             }
 
             tempTimer++;
+            tempTimer %= 20 * 4;
             if (!isBurning) {
                 if (temperature > 20) {
-                    tempTimer %= 20 * 4;
-                    if (tempTimer == 0)
+                    if (tempTimer % (20 * ((isComplete) ? 4 : 1)) == 0)
                         --temperature;
                 }
 
-                if (burnTime > 0)
-                    burnTime = 0;
+                if (burnTime > 0 && !output.isEmpty()) { // if oven was destroyed during cooking, then player doesn't deserve the coke!
+                    output = ItemStack.EMPTY;
+                }
             }
 
-            if (isBurning && temperature < maxTemperature) {
-                if (tempTimer % 10 == 0)
-                    ++temperature;
+            if (isBurning && temperature < maxTemperature
+                && tempTimer % 10 == 0) {
+                ++temperature;
             }
             world.setBlockState(pos, getCachedState().with(BeehiveOvenControlBlock.SMOKING, (temperature >= 100)));
 
+            if (burnTime > 0)
+                --burnTime;
+
             ItemStack from = getInvStack(0);
-            if (isBurning) {
-                if (!isComplete)
-                    burnTime = 0;
-                else
-                    --burnTime;
+            if (burnTime <= 0) {
+                isBurning = false;
+                burnTime = 0;
+                recipeBurnTime = 0;
 
-                if (burnTime <= 0) {
-                    isBurning = false;
-                    burnTime = 0;
-                    recipeBurnTime = 0;
-
-                    if (temperature >= threshold) {
-                        if (!getInvStack(1).isEmpty() && getInvStack(1).isItemEqualIgnoreDamage(output))
-                            this.items.get(1).increment(output.getCount());
-                        else if (getInvStack(1).isEmpty()) {
-                            ItemStack out = output.copy();
-                            out.setCount(output.getCount());
-                            setInvStack(1, out);
-                        }
-                        output = ItemStack.EMPTY;
+                if (temperature >= threshold && !output.isEmpty()) {
+                    if (!getInvStack(1).isEmpty() && getInvStack(1).isItemEqualIgnoreDamage(output))
+                        this.items.get(1).increment(output.getCount());
+                    else if (getInvStack(1).isEmpty()) {
+                        ItemStack out = output.copy();
+                        out.setCount(output.getCount());
+                        setInvStack(1, out);
                     }
-                    world.setBlockState(pos, getCachedState().with(BeehiveOvenControlBlock.LIT, false));
-                } else
-                    world.setBlockState(pos, getCachedState().with(BeehiveOvenControlBlock.LIT, true));
-            }
+                    output = ItemStack.EMPTY;
+                }
+                world.setBlockState(pos, getCachedState().with(BeehiveOvenControlBlock.LIT, false));
+            } else
+                world.setBlockState(pos, getCachedState().with(BeehiveOvenControlBlock.LIT, true));
 
             if (!from.isEmpty() && !isBurning && isComplete) {
                 BeehiveOvenRecipe recipe = world.getRecipeManager().getFirstMatch(ModMain.BEEHIVE_OVEN_RECIPE_TYPE, this, this.world).orElse(null);
@@ -206,17 +201,13 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
 
     public void checkStructure() {
         if (!isBurning && hasWorld()) {
-            checkStructureIntegrity();
+            isComplete = checkStructureIntegrity();
         }
     }
 
     @Override
     public DefaultedList<ItemStack> getItems() {
         return items;
-    }
-
-    public boolean getBurning() {
-        return isBurning;
     }
 
     private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
@@ -268,7 +259,7 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
         return propertyDelegate;
     }
 
-    private void checkStructureIntegrity() {
+    private boolean checkStructureIntegrity() {
         assert(hasWorld());
         World world = getWorld();
         BlockPos pos = getPos();
@@ -330,6 +321,6 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
             }
         }
 
-        this.isComplete = tempIsComplete;
+        return tempIsComplete;
     }
 }
