@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "chemica:fireproof_brick_wall"
+    "chemica:fireproof_brick_wall",
+    "chemica:sandstone_brick_wall"
   ]
 }
