@@ -9,7 +9,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.container.PropertyDelegate;
 import team.teasanctuary.chemica.registry.Blocks;
 
-public class EnergyBoxEntity extends MachineBlockEntity {
+public class EnergyBoxEntity extends MachineBlockWithEnergy {
 
     private final int transferRate = 60;
 

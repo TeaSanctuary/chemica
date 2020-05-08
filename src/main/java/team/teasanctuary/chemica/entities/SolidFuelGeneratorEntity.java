@@ -6,12 +6,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.state.property.BooleanProperty;
 import team.teasanctuary.chemica.ModMain;
+import team.teasanctuary.chemica.api.IEnergyProvider;
 import team.teasanctuary.chemica.api.MachineBlockEntity;
+import team.teasanctuary.chemica.api.MachineBlockWithEnergy;
 import team.teasanctuary.chemica.blocks.SolidFuelGeneratorBlock;
 import team.teasanctuary.chemica.recipes.GeneratorRecipe;
 import team.teasanctuary.chemica.registry.Blocks;
 
-public class SolidFuelGeneratorEntity extends MachineBlockEntity {
+public class SolidFuelGeneratorEntity extends MachineBlockWithEnergy implements IEnergyProvider {
 
     private int recipeBurnTime = 0;
     private int burnTime = 0;

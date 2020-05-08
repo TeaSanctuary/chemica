@@ -13,7 +13,6 @@ import net.minecraft.util.registry.Registry;
 import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.CustomStairsBlock;
 import team.teasanctuary.chemica.blocks.*;
-import team.teasanctuary.chemica.blocks.ConduitBlock;
 import team.teasanctuary.chemica.entities.*;
 
 public class Blocks {
@@ -21,9 +20,10 @@ public class Blocks {
     public static CrusherBlock CRUSHER_BLOCK;
     public static CrankBlock CRANK_BLOCK;
     public static SolidFuelGeneratorBlock SOLID_FUEL_GENERATOR_BLOCK;
-    public static ConduitBlock CONDUIT_BLOCK;
+
     public static BeehiveOvenControlBlock BEEHIVE_OVEN_CONTROL_BLOCK;
     public static StoneAlloySmelterBlock STONE_ALLOY_SMELTER_BLOCK;
+    public static BasicWireBlock BASIC_WIRE_BLOCK;
 
     public static Block BAUXITE_BLOCK;
 
@@ -41,9 +41,9 @@ public class Blocks {
     public static BlockEntityType<CrusherBlockEntity> CRUSHER_BLOCK_ENTITY;
     public static BlockEntityType<CrankBlockEntity> CRANK_BLOCK_ENTITY;
     public static BlockEntityType<SolidFuelGeneratorEntity> SOLID_FUEL_GENERATOR_ENTITY;
-    public static BlockEntityType<ConduitBlockEntity> CONDUIT_BLOCK_ENTITY;
     public static BlockEntityType<BeehiveOvenControlBlockEntity> BEEHIVE_OVEN_CONTROL_BLOCK_ENTITY;
     public static BlockEntityType<StoneAlloySmelterEntity> STONE_ALLOY_SMELTER_ENTITY;
+    public static BlockEntityType<BasicWireBlockEntity> BASIC_WIRE_BLOCK_ENTITY;
 
     public static final Identifier BAUXITE_BLOCK_ID = new Identifier("chemica", "bauxite");
 
@@ -67,9 +67,9 @@ public class Blocks {
         CRUSHER_BLOCK = new CrusherBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
         CRANK_BLOCK = new CrankBlock(FabricBlockSettings.of(Material.WOOD).hardness(1.f).nonOpaque().build());
         SOLID_FUEL_GENERATOR_BLOCK = new SolidFuelGeneratorBlock(FabricBlockSettings.of(Material.METAL).hardness(2.5f).build());
-        CONDUIT_BLOCK = new ConduitBlock(FabricBlockSettings.of(Material.METAL).hardness(1.f).nonOpaque().build());
         BEEHIVE_OVEN_CONTROL_BLOCK = new BeehiveOvenControlBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).lightLevel(13).build());
         STONE_ALLOY_SMELTER_BLOCK = new StoneAlloySmelterBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
+        BASIC_WIRE_BLOCK = new BasicWireBlock(FabricBlockSettings.of(Material.METAL).hardness(1.f).nonOpaque().build());
 
         BAUXITE_BLOCK = new Block(FabricBlockSettings.of(Material.SAND).hardness(1.f).build());
 
@@ -108,6 +108,11 @@ public class Blocks {
         Registry.register(Registry.BLOCK, SANDSTONE_BRICK_WALL_ID, SANDSTONE_BRICK_WALL);
         Registry.register(Registry.ITEM, SANDSTONE_BRICK_WALL_ID, new BlockItem(SANDSTONE_BRICK_WALL, new Item.Settings().maxCount(64).group(CHEMICA_BUILDING_BLOCKS)));
 
+        Registry.register(Registry.BLOCK, BasicWireBlock.ID, BASIC_WIRE_BLOCK);
+        Registry.register(Registry.ITEM, BasicWireBlock.ID, new BlockItem(BASIC_WIRE_BLOCK, new Item.Settings().maxCount(64).group(ModMain.CHEMICA_GENERAL)));
+        BASIC_WIRE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, BasicWireBlock.ID,
+                BlockEntityType.Builder.create(BasicWireBlockEntity::new, BASIC_WIRE_BLOCK).build(null));
+
         Registry.register(Registry.BLOCK, StoneAlloySmelterBlock.ID, STONE_ALLOY_SMELTER_BLOCK);
         Registry.register(Registry.ITEM, StoneAlloySmelterBlock.ID, new BlockItem(STONE_ALLOY_SMELTER_BLOCK, new Item.Settings().maxCount(1).group(ModMain.CHEMICA_GENERAL)));
         STONE_ALLOY_SMELTER_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, StoneAlloySmelterBlock.ID,
@@ -117,11 +122,6 @@ public class Blocks {
         Registry.register(Registry.ITEM, SolidFuelGeneratorBlock.ID, new BlockItem(SOLID_FUEL_GENERATOR_BLOCK, new Item.Settings().maxCount(1).group(ModMain.CHEMICA_GENERAL)));
         SOLID_FUEL_GENERATOR_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, SolidFuelGeneratorBlock.ID,
                 BlockEntityType.Builder.create(SolidFuelGeneratorEntity::new, SOLID_FUEL_GENERATOR_BLOCK).build(null));
-
-        Registry.register(Registry.BLOCK, ConduitBlock.ID, CONDUIT_BLOCK);
-        Registry.register(Registry.ITEM, ConduitBlock.ID, new BlockItem(CONDUIT_BLOCK, new Item.Settings().maxCount(64).group(ModMain.CHEMICA_GENERAL)));
-        CONDUIT_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ConduitBlock.ID,
-                BlockEntityType.Builder.create(ConduitBlockEntity::new, CONDUIT_BLOCK).build(null));
 
         Registry.register(Registry.BLOCK, CrusherBlock.ID, CRUSHER_BLOCK);
         Registry.register(Registry.ITEM, CrusherBlock.ID, new BlockItem(CRUSHER_BLOCK, new Item.Settings().maxCount(1).group(ModMain.CHEMICA_GENERAL)));

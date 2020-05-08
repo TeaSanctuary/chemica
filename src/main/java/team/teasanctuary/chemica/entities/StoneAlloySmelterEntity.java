@@ -10,14 +10,14 @@ import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Tickable;
 import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.ImplementedInventory;
+import team.teasanctuary.chemica.api.MachineBlockEntity;
 import team.teasanctuary.chemica.blocks.SolidFuelGeneratorBlock;
 import team.teasanctuary.chemica.blocks.StoneAlloySmelterBlock;
 import team.teasanctuary.chemica.recipes.GeneratorRecipe;
 import team.teasanctuary.chemica.recipes.StoneAlloySmelterRecipe;
 import team.teasanctuary.chemica.registry.Blocks;
 
-public class StoneAlloySmelterEntity extends BlockEntity implements ImplementedInventory, PropertyDelegateHolder, Tickable {
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(4, ItemStack.EMPTY);
+public class StoneAlloySmelterEntity extends MachineBlockEntity {
 
     private ItemStack output;
     private int recipeBurnTime = 0;
@@ -28,7 +28,7 @@ public class StoneAlloySmelterEntity extends BlockEntity implements ImplementedI
     public boolean isBurning() { return burnTime > 0; }
 
     public StoneAlloySmelterEntity() {
-        super(Blocks.STONE_ALLOY_SMELTER_ENTITY);
+        super(Blocks.STONE_ALLOY_SMELTER_ENTITY, 4);
     }
 
     @Override
@@ -93,6 +93,8 @@ public class StoneAlloySmelterEntity extends BlockEntity implements ImplementedI
         if (!world.isClient) {
             if (this.isBurning()) {
                 --burnTime;
+            } else {
+                world.setBlockState(pos, getCachedState().with(StoneAlloySmelterBlock.BURNING, false));
             }
 
             ItemStack fuel = getInvStack(2);
@@ -107,6 +109,7 @@ public class StoneAlloySmelterEntity extends BlockEntity implements ImplementedI
                     if (!this.isBurning()) {
                         this.burnTime = AbstractFurnaceBlockEntity.createFuelTimeMap().get(fuel.getItem());
                         this.recipeBurnTime = this.burnTime;
+                        world.setBlockState(pos, getCachedState().with(StoneAlloySmelterBlock.BURNING, true));
                     }
                     if (this.isBurning()) {
                         if (!fuel.isEmpty()) {
@@ -151,55 +154,6 @@ public class StoneAlloySmelterEntity extends BlockEntity implements ImplementedI
                 }
             }
         }
-//            if (isBurning) {
-//                --burnTime;
-//                --cookTime;
-//
-//                if (cookTime <= 0 && !output.isEmpty()) {
-//                    cookTime = 0;
-//                    cookTimeTotal = 0;
-//                    output = ItemStack.EMPTY;
-//
-//                    if (getInvStack(3).isEmpty()) {
-//                        setInvStack(3, output.copy());
-//                    } else {
-//                        getInvStack(3).increment(output.getCount());
-//                    }
-//                }
-//
-//                if (burnTime <= 0) {
-//                    isBurning = false;
-//                    burnTime = 0;
-//                    recipeBurnTime = 0;
-//
-//                    world.setBlockState(pos, getCachedState().with(StoneAlloySmelterBlock.BURNING, false));
-//                }
-//            }
-//
-//            ItemStack from = getInvStack(0);
-//            ItemStack from2 = getInvStack(1);
-//            ItemStack fuel = getInvStack(2);
-//
-//            if (!from.isEmpty() && !from2.isEmpty() && !isBurning && AbstractFurnaceBlockEntity.canUseAsFuel(fuel) && cookTime <= 0) {
-//                StoneAlloySmelterRecipe recipe = world.getRecipeManager().getFirstMatch(ModMain.STONE_ALLOY_SMELTER_RECIPE, this, this.world).orElse(null);
-//
-//                if (recipe != null) {
-//                    if (canRecieveOutput(recipe)) {
-//                        burnTime = AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(fuel.getItem(), 0);
-//                        recipeBurnTime = burnTime;
-//                        cookTime = recipe.getCookTime();
-//                        cookTimeTotal = cookTime;
-//                        output = recipe.getOutput();
-//                        isBurning = true;
-//                        world.setBlockState(pos, getCachedState().with(StoneAlloySmelterBlock.BURNING, true));
-//
-//                        from.decrement(recipe.getInput().getCount());
-//                        from2.decrement(recipe.getInput2().getCount());
-//                        fuel.decrement(1);
-//                    }
-//                }
-//            }
-//        }
     }
 
     private boolean canRecieveOutput(StoneAlloySmelterRecipe recipe) {

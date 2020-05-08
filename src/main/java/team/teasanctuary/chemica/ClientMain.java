@@ -29,7 +29,6 @@ public class ClientMain implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(Blocks.CRANK_BLOCK, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.CONDUIT_BLOCK, RenderLayer.getCutout());
 
         ScreenProviderRegistry.INSTANCE.registerFactory(TesterItem.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<TesterItemController>(new TesterItemController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
         ScreenProviderRegistry.INSTANCE.registerFactory(EnergyBoxBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<EnergyBoxController>(new EnergyBoxController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));

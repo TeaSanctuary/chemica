@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import team.teasanctuary.chemica.recipes.CrusherRecipe;
 import team.teasanctuary.chemica.registry.Blocks;
 
-public class CrusherBlockEntity extends MachineBlockEntity implements ICrankable {
+public class CrusherBlockEntity extends MachineBlockWithEnergy implements ICrankable {
 
     public CrusherBlockEntity() {
         super(Blocks.CRUSHER_BLOCK_ENTITY, 100, true, 2);

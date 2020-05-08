@@ -15,20 +15,17 @@ import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
 
 public abstract class MachineBlockEntity extends BlockEntity implements Tickable, ImplementedInventory, PropertyDelegateHolder,
-        BlockEntityClientSerializable, IEnergyStorageHolder {
+        BlockEntityClientSerializable  {
 
     protected final DefaultedList<ItemStack> items;
-    protected final EnergyStorage energy;
 
-    public MachineBlockEntity(BlockEntityType<?> type, int energyCap, boolean canRecieveEnergy, int invSize) {
+    public MachineBlockEntity(BlockEntityType<?> type, int invSize) {
         super(type);
-        energy = new EnergyStorage(energyCap, canRecieveEnergy);
         items = DefaultedList.ofSize(invSize, ItemStack.EMPTY);
     }
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-        energy.saveToNBT(tag);
         Inventories.toTag(tag, items);
         return super.toTag(tag);
     }
@@ -36,7 +33,6 @@ public abstract class MachineBlockEntity extends BlockEntity implements Tickable
     @Override
     public void fromTag(CompoundTag tag) {
         super.fromTag(tag);
-        energy.writeFromNBT(tag);
         Inventories.fromTag(tag, items);
     }
 
@@ -53,11 +49,6 @@ public abstract class MachineBlockEntity extends BlockEntity implements Tickable
     @Override
     public void tick() {
 
-    }
-
-    @Override
-    public IEnergyStorage getEnergyStorage() {
-        return energy;
     }
 
     @Override

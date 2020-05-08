@@ -56,7 +56,7 @@ public class EnergyStorage implements IEnergyStorage {
         List<IEnergyStorageHolder> targets = new ArrayList<>();
         for (Direction direction : Direction.values()) {
             BlockEntity be = world.getBlockEntity(pos.offset(direction));
-            if (be instanceof IEnergyStorageHolder) {
+            if (be instanceof IEnergyStorageHolder && !(be instanceof IEnergyProvider)) {
                 targets.add((IEnergyStorageHolder) be);
             }
         }

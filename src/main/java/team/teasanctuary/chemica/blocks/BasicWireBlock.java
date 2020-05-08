@@ -1,15 +1,14 @@
 package team.teasanctuary.chemica.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.ConduitBlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.container.PropertyDelegate;
 import net.minecraft.entity.EntityContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.BooleanBiFunction;
 import net.minecraft.util.Identifier;
@@ -20,9 +19,12 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import team.teasanctuary.chemica.api.IEnergyStorageHolder;
+import team.teasanctuary.chemica.api.MachineBlock;
+import team.teasanctuary.chemica.api.MachineBlockWithEnergy;
+import team.teasanctuary.chemica.entities.BasicWireBlockEntity;
 
-public class ConduitBlock extends Block implements BlockEntityProvider {
-    public static final Identifier ID = new Identifier("chemica", "conduit");
+public class BasicWireBlock extends MachineBlock {
+    public static final Identifier ID = new Identifier("chemica", "basic_wire");
 
     public static final BooleanProperty CONNECTED_UP    = BooleanProperty.of("connected_up");
     public static final BooleanProperty CONNECTED_DOWN  = BooleanProperty.of("connected_down");
@@ -31,8 +33,9 @@ public class ConduitBlock extends Block implements BlockEntityProvider {
     public static final BooleanProperty CONNECTED_SOUTH = BooleanProperty.of("connected_south");
     public static final BooleanProperty CONNECTED_WEST  = BooleanProperty.of("connected_west");
 
-    public ConduitBlock(Settings settings) {
+    public BasicWireBlock(Settings settings) {
         super(settings);
+
         setDefaultState(getStateManager().getDefaultState()
                 .with(CONNECTED_UP, false)
                 .with(CONNECTED_DOWN, false)
@@ -43,7 +46,13 @@ public class ConduitBlock extends Block implements BlockEntityProvider {
     }
 
     @Override
+    public BlockEntity createBlockEntity(BlockView view) {
+        return new BasicWireBlockEntity();
+    }
+
+    @Override
     protected void appendProperties(net.minecraft.state.StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
         builder.add(CONNECTED_DOWN, CONNECTED_EAST, CONNECTED_NORTH, CONNECTED_SOUTH, CONNECTED_UP, CONNECTED_WEST);
     }
 
@@ -126,11 +135,6 @@ public class ConduitBlock extends Block implements BlockEntityProvider {
         }
     }
 
-    @Override
-    public BlockEntity createBlockEntity(BlockView view) {
-        return new ConduitBlockEntity();
-    }
-
     private class StateManager {
         public boolean dirty = false;
         public BlockState state;
@@ -161,8 +165,7 @@ public class ConduitBlock extends Block implements BlockEntityProvider {
             BlockPos offsetPos = pos.offset(direction);
 
             BlockEntity block = world.getBlockEntity(offsetPos);
-            return block instanceof IEnergyStorageHolder || block instanceof ConduitBlockEntity;
+            return block instanceof IEnergyStorageHolder || block instanceof BasicWireBlockEntity;
         }
     }
-
 }
