@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chemica:block/coke_block",
+    "up": "chemica:block/coke_block",
+    "north": "chemica:block/coke_block",
+    "east": "chemica:block/coke_block",
+    "west": "chemica:block/coke_block",
+    "south": "chemica:block/coke_block",
+    "particle": "block/sand"
+  }
+}

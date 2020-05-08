@@ -25,6 +25,8 @@ public class Blocks {
     public static StoneAlloySmelterBlock STONE_ALLOY_SMELTER_BLOCK;
     public static BasicWireBlock BASIC_WIRE_BLOCK;
 
+    public static Block COKE_BLOCK;
+
     public static Block BAUXITE_BLOCK;
 
     public static Block FIREPROOF_BRICKS_BLOCK;
@@ -44,6 +46,10 @@ public class Blocks {
     public static BlockEntityType<BeehiveOvenControlBlockEntity> BEEHIVE_OVEN_CONTROL_BLOCK_ENTITY;
     public static BlockEntityType<StoneAlloySmelterEntity> STONE_ALLOY_SMELTER_ENTITY;
     public static BlockEntityType<BasicWireBlockEntity> BASIC_WIRE_BLOCK_ENTITY;
+
+    public static BlockItem COKE_BLOCK_ITEM;
+
+    public static final Identifier COKE_BLOCK_ID = new Identifier("chemica", "coke_block");
 
     public static final Identifier BAUXITE_BLOCK_ID = new Identifier("chemica", "bauxite");
 
@@ -71,6 +77,9 @@ public class Blocks {
         STONE_ALLOY_SMELTER_BLOCK = new StoneAlloySmelterBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
         BASIC_WIRE_BLOCK = new BasicWireBlock(FabricBlockSettings.of(Material.METAL).hardness(1.f).nonOpaque().build());
 
+        COKE_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).strength(5.f, 6.f).build());
+        COKE_BLOCK_ITEM = new BlockItem(COKE_BLOCK, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS));
+
         BAUXITE_BLOCK = new Block(FabricBlockSettings.of(Material.SAND).hardness(1.f).build());
 
         FIREPROOF_BRICKS_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
@@ -87,6 +96,9 @@ public class Blocks {
     }
 
     private static void register() {
+        Registry.register(Registry.BLOCK, COKE_BLOCK_ID, COKE_BLOCK);
+        Registry.register(Registry.ITEM, COKE_BLOCK_ID, COKE_BLOCK_ITEM);
+
         Registry.register(Registry.BLOCK, BAUXITE_BLOCK_ID, BAUXITE_BLOCK);
         Registry.register(Registry.ITEM, BAUXITE_BLOCK_ID, new BlockItem(BAUXITE_BLOCK, new Item.Settings().maxCount(64).group(CHEMICA_BUILDING_BLOCKS)));
 

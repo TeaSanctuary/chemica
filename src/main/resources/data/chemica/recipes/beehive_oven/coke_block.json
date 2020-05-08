@@ -1,0 +1,12 @@
+{
+  "type": "chemica:beehive_oven_recipe",
+  "ingredient": {
+    "item": "minecraft:coal_block"
+  },
+  "result": {
+    "item": "chemica:coke_block",
+    "count": 1
+  },
+  "burnTime": 16000,
+  "threshold": 1000
+}

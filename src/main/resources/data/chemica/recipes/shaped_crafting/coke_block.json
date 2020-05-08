@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xxx",
+    "xxx",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "chemica:coke"
+    }
+  },
+  "result": {
+    "item": "chemica:coke_block",
+    "count": 1
+  }
+}

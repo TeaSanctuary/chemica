@@ -1,0 +1,12 @@
+{
+  "type": "chemica:beehive_oven_recipe",
+  "ingredient": {
+    "tag": "minecraft:logs"
+  },
+  "result": {
+    "item": "minecraft:charcoal",
+    "count": 1
+  },
+  "burnTime": 300,
+  "threshold": 600
+}
