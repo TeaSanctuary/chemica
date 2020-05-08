@@ -100,8 +100,6 @@ public class BeehiveOvenControlBlock extends MachineBlock implements BlockEntity
         if (!(be instanceof BeehiveOvenControlBlockEntity))
             return ActionResult.SUCCESS;
 
-        BeehiveOvenControlBlockEntity bocbe = (BeehiveOvenControlBlockEntity) be;
-        bocbe.checkStructure();
         ContainerProviderRegistry.INSTANCE.openContainer(BeehiveOvenControlBlock.ID, player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
 
         player.swingHand(Hand.MAIN_HAND);

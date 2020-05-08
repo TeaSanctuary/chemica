@@ -90,7 +90,7 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
         burnTime = tag.getInt("burnTime");
         threshold = tag.getInt("threshold");
         tempTimer = tag.getInt("tempT");
-        output = ItemStack.fromTag(tag);
+        output = ItemStack.fromTag(tag.getCompound("output"));
         Inventories.fromTag(tag, items);
 
         super.fromTag(tag);
@@ -104,7 +104,9 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
         tag.putInt("burnTime", burnTime);
         tag.putInt("threshold", threshold);
         tag.putInt("tempT", tempTimer);
-        output.toTag(tag);
+        CompoundTag out = new CompoundTag();
+        output.toTag(out);
+        tag.put("output", out);
         Inventories.toTag(tag, items);
 
         return super.toTag(tag);
@@ -115,9 +117,10 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
         if (!hasWorld())
             return;
 
+        isComplete = checkStructureIntegrity();
         if (!getWorld().isClient) {
             if (isBurning) {
-                isBurning = isComplete = checkStructureIntegrity();
+                isBurning = isComplete;
             }
 
             tempTimer++;
@@ -143,24 +146,26 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
                 --burnTime;
 
             ItemStack from = getInvStack(0);
-            if (burnTime <= 0) {
-                isBurning = false;
-                burnTime = 0;
-                recipeBurnTime = 0;
+            if (isBurning) {
+                if (burnTime <= 0) {
+                    isBurning = false;
+                    burnTime = 0;
+                    recipeBurnTime = 0;
 
-                if (temperature >= threshold && !output.isEmpty()) {
-                    if (!getInvStack(1).isEmpty() && getInvStack(1).isItemEqualIgnoreDamage(output))
-                        this.items.get(1).increment(output.getCount());
-                    else if (getInvStack(1).isEmpty()) {
-                        ItemStack out = output.copy();
-                        out.setCount(output.getCount());
-                        setInvStack(1, out);
+                    if (temperature >= threshold && !output.isEmpty()) {
+                        if (!getInvStack(1).isEmpty() && getInvStack(1).isItemEqualIgnoreDamage(output))
+                            this.items.get(1).increment(output.getCount());
+                        else if (getInvStack(1).isEmpty()) {
+                            ItemStack out = output.copy();
+                            out.setCount(output.getCount());
+                            setInvStack(1, out);
+                        }
+                        output = ItemStack.EMPTY;
                     }
-                    output = ItemStack.EMPTY;
-                }
-                world.setBlockState(pos, getCachedState().with(BeehiveOvenControlBlock.LIT, false));
-            } else
-                world.setBlockState(pos, getCachedState().with(BeehiveOvenControlBlock.LIT, true));
+                    world.setBlockState(pos, getCachedState().with(BeehiveOvenControlBlock.LIT, false));
+                } else
+                    world.setBlockState(pos, getCachedState().with(BeehiveOvenControlBlock.LIT, true));
+            }
 
             if (!from.isEmpty() && !isBurning && isComplete) {
                 BeehiveOvenRecipe recipe = world.getRecipeManager().getFirstMatch(ModMain.BEEHIVE_OVEN_RECIPE_TYPE, this, this.world).orElse(null);
@@ -199,12 +204,6 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
         return false;
     }
 
-    public void checkStructure() {
-        if (!isBurning && hasWorld()) {
-            isComplete = checkStructureIntegrity();
-        }
-    }
-
     @Override
     public DefaultedList<ItemStack> getItems() {
         return items;
@@ -214,10 +213,7 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
         @Override
         public int get(int index) {
             switch (index) {
-                case 0:
-                    if (tempTimer % 10 == 0) // check for integrity every 500 ms
-                        checkStructure();
-                    return (isComplete) ? 1 : 0;
+                case 0: return (isComplete) ? 1 : 0;
                 case 1: return temperature;
                 case 2: return maxTemperature;
                 case 3: return burnTime;
