@@ -24,6 +24,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import team.teasanctuary.chemica.ModMain;
+import team.teasanctuary.chemica.api.IEnergyProvider;
 import team.teasanctuary.chemica.api.MachineBlock;
 import team.teasanctuary.chemica.entities.CrusherBlockEntity;
 import team.teasanctuary.chemica.entities.SolidFuelGeneratorEntity;

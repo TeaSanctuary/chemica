@@ -21,9 +21,11 @@ public class Blocks {
     public static CrusherBlock CRUSHER_BLOCK;
     public static CrankBlock CRANK_BLOCK;
     public static SolidFuelGeneratorBlock SOLID_FUEL_GENERATOR_BLOCK;
+
     public static ConduitBlock CONDUIT_BLOCK;
     public static BeehiveOvenControlBlock BEEHIVE_OVEN_CONTROL_BLOCK;
     public static StoneAlloySmelterBlock STONE_ALLOY_SMELTER_BLOCK;
+    public static BasicWireBlock BASIC_WIRE_BLOCK;
 
     public static Block FIREPROOF_BRICKS_BLOCK;
     public static SlabBlock FIREPROOF_BRICK_SLAB;
@@ -41,6 +43,7 @@ public class Blocks {
     public static BlockEntityType<ConduitBlockEntity> CONDUIT_BLOCK_ENTITY;
     public static BlockEntityType<BeehiveOvenControlBlockEntity> BEEHIVE_OVEN_CONTROL_BLOCK_ENTITY;
     public static BlockEntityType<StoneAlloySmelterEntity> STONE_ALLOY_SMELTER_ENTITY;
+    public static BlockEntityType<BasicWireBlockEntity> BASIC_WIRE_BLOCK_ENTITY;
 
     public static final Identifier BAUXITE_BLOCK_ID = new Identifier("chemica", "bauxite");
 
@@ -64,6 +67,7 @@ public class Blocks {
         CONDUIT_BLOCK = new ConduitBlock(FabricBlockSettings.of(Material.METAL).hardness(1.f).nonOpaque().build());
         BEEHIVE_OVEN_CONTROL_BLOCK = new BeehiveOvenControlBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).lightLevel(13).build());
         STONE_ALLOY_SMELTER_BLOCK = new StoneAlloySmelterBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
+        BASIC_WIRE_BLOCK = new BasicWireBlock(FabricBlockSettings.of(Material.METAL).hardness(1.f).nonOpaque().build());
 
         FIREPROOF_BRICKS_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
         FIREPROOF_BRICK_SLAB = new SlabBlock(FabricBlockSettings.copy(FIREPROOF_BRICKS_BLOCK).build());
@@ -92,6 +96,11 @@ public class Blocks {
 
         Registry.register(Registry.BLOCK, SANDSTONE_BRICKS_BLOCK_ID, SANDSTONE_BRICKS_BLOCK);
         Registry.register(Registry.ITEM, SANDSTONE_BRICKS_BLOCK_ID, new BlockItem(SANDSTONE_BRICKS_BLOCK, new Item.Settings().maxCount(64).group(CHEMICA_BUILDING_BLOCKS)));
+
+        Registry.register(Registry.BLOCK, BasicWireBlock.ID, BASIC_WIRE_BLOCK);
+        Registry.register(Registry.ITEM, BasicWireBlock.ID, new BlockItem(BASIC_WIRE_BLOCK, new Item.Settings().maxCount(64).group(ModMain.CHEMICA_GENERAL)));
+        BASIC_WIRE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, BasicWireBlock.ID,
+                BlockEntityType.Builder.create(BasicWireBlockEntity::new, BASIC_WIRE_BLOCK).build(null));
 
         Registry.register(Registry.BLOCK, StoneAlloySmelterBlock.ID, STONE_ALLOY_SMELTER_BLOCK);
         Registry.register(Registry.ITEM, StoneAlloySmelterBlock.ID, new BlockItem(STONE_ALLOY_SMELTER_BLOCK, new Item.Settings().maxCount(1).group(ModMain.CHEMICA_GENERAL)));
