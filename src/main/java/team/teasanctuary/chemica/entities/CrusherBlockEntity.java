@@ -1,16 +1,39 @@
 package team.teasanctuary.chemica.entities;
 
-import team.teasanctuary.chemica.ModMain;
-import team.teasanctuary.chemica.api.*;
 import net.minecraft.container.PropertyDelegate;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import team.teasanctuary.chemica.ModMain;
+import team.teasanctuary.chemica.api.ICrankable;
+import team.teasanctuary.chemica.api.MachineBlockWithEnergy;
 import team.teasanctuary.chemica.recipes.CrusherRecipe;
 import team.teasanctuary.chemica.registry.Blocks;
 
 public class CrusherBlockEntity extends MachineBlockWithEnergy implements ICrankable {
+    private ItemStack output = ItemStack.EMPTY;
+    private boolean crushingInProgress = false;
 
     public CrusherBlockEntity() {
-        super(Blocks.CRUSHER_BLOCK_ENTITY, 100, true, 2);
+        super(Blocks.CRUSHER_BLOCK_ENTITY, 0, true, 2);
+    }
+
+    @Override
+    public CompoundTag toTag(CompoundTag tag) {
+        tag.putBoolean("in_progress", crushingInProgress);
+
+        CompoundTag output_tag = new CompoundTag();
+        output.toTag(output_tag);
+        tag.put("output", output_tag);
+
+        return super.toTag(tag);
+    }
+
+    @Override
+    public void fromTag(CompoundTag tag) {
+        super.fromTag(tag);
+
+        crushingInProgress = tag.getBoolean("in_progress");
+        output = ItemStack.fromTag(tag.getCompound("output"));
     }
 
     @Override
@@ -46,36 +69,44 @@ public class CrusherBlockEntity extends MachineBlockWithEnergy implements ICrank
     @Override
     public void tick() {
         if (!world.isClient) {
-            ItemStack from = getInvStack(0);
+            if (!output.isEmpty() && crushingInProgress) {
+                if (energy.getAmount() >= energy.getCapacity()) {
+                    crushingInProgress = false;
+                    energy.setReceive(false);
+                    energy.setEnergy(0);
 
+                    ItemStack outputStack = getInvStack(1);
+                    if (!outputStack.isEmpty()
+                            && outputStack.isItemEqualIgnoreDamage(output)
+                            && outputStack.getCount() < outputStack.getMaxCount()) {
+                        outputStack.increment(output.getCount());
+                    } else if (outputStack.isEmpty()) {
+                        setInvStack(1, output.copy());
+                    }
+                    output = ItemStack.EMPTY;
+                }
+            }
+
+            ItemStack from = getInvStack(0);
             if (!from.isEmpty()) {
                 CrusherRecipe recipe = world.getRecipeManager().getFirstMatch(ModMain.CRUSHER_RECIPE, this, this.world).orElse(null);
 
                 if (recipe != null) {
-                    energy.setRecieve(true);
-                    boolean canRecieve = canRecieveOutput(recipe);
-                    if (energy.getAmount() >= recipe.getTicks() && canRecieve) {
-                        ItemStack input = this.items.get(0);
-                        ItemStack output = this.items.get(1);
-                        ItemStack result = recipe.getOutput();
-
-                        if (output.isEmpty()) {
-                            output = result.copy();
-                            output.setCount(result.getCount());
-                            this.items.set(1, output);
-                        } else if(output.getItem() == result.getItem()) {
-                            output.increment(result.getCount());
+                    if (output.isEmpty()) {
+                        if (canRecieveOutput(recipe)) {
+                            energy.setReceive(true);
+                            energy.setCapacity(recipe.getTicks());
+                            energy.setEnergy(0);
+                            output = recipe.getOutput();
                         }
-
-                        input.decrement(1);
+                    } else if (!crushingInProgress
+                            && output.isItemEqualIgnoreDamage(recipe.getOutput())
+                            && energy.getAmount() > 0) {
+                        getInvStack(0).decrement(1);
+                        crushingInProgress = true;
                     }
                 }
-
-                return;
             }
-
-            energy.setRecieve(false);
-            energy.extract(energy.getCapacity(), false);
         }
     }
 

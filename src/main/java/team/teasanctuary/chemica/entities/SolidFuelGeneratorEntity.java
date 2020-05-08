@@ -1,13 +1,10 @@
 package team.teasanctuary.chemica.entities;
 
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.container.PropertyDelegate;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.state.property.BooleanProperty;
 import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.IEnergyProvider;
-import team.teasanctuary.chemica.api.MachineBlockEntity;
 import team.teasanctuary.chemica.api.MachineBlockWithEnergy;
 import team.teasanctuary.chemica.blocks.SolidFuelGeneratorBlock;
 import team.teasanctuary.chemica.recipes.GeneratorRecipe;
@@ -87,7 +84,7 @@ public class SolidFuelGeneratorEntity extends MachineBlockWithEnergy implements 
         if (!world.isClient) {
             if (isBurning) {
                 --burnTime;
-                energy.recieve(30, false);
+                energy.receive(30, false);
                 if (burnTime <= 0) {
                     isBurning = false;
                     burnTime = 0;
@@ -102,7 +99,7 @@ public class SolidFuelGeneratorEntity extends MachineBlockWithEnergy implements 
                 GeneratorRecipe recipe = world.getRecipeManager().getFirstMatch(ModMain.GENERATOR_RECIPE, this, this.world).orElse(null);
 
                 if (recipe != null) {
-                    if (canRecieveOutput(recipe)) {
+                    if (canReceiveOutput(recipe)) {
                         ItemStack input = getInvStack(0);
                         burnTime = recipe.getBurnTime();
                         recipeBurnTime = burnTime;
@@ -119,7 +116,7 @@ public class SolidFuelGeneratorEntity extends MachineBlockWithEnergy implements 
         }
     }
 
-    private boolean canRecieveOutput(GeneratorRecipe recipe) {
+    private boolean canReceiveOutput(GeneratorRecipe recipe) {
         return !(energy.getAmount() >= energy.getCapacity());
     }
 }

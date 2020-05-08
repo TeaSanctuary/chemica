@@ -1,14 +1,13 @@
 package team.teasanctuary.chemica.api;
 
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.nbt.CompoundTag;
 
 public abstract class MachineBlockWithEnergy extends MachineBlockEntity implements IEnergyStorageHolder {
 
-    public MachineBlockWithEnergy(BlockEntityType<?> type, int energyCap, boolean canRecieveEnergy, int invSize) {
+    public MachineBlockWithEnergy(BlockEntityType<?> type, int energyCap, boolean canReceiveEnergy, int invSize) {
         super(type, invSize);
-        energy = new EnergyStorage(energyCap, canRecieveEnergy);
+        energy = new EnergyStorage(energyCap, canReceiveEnergy);
     }
 
     protected final EnergyStorage energy;

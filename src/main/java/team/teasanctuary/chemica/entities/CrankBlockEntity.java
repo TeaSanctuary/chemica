@@ -1,11 +1,9 @@
 package team.teasanctuary.chemica.entities;
 
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
-import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.ICrankable;
 import team.teasanctuary.chemica.api.IEnergyStorage;
 import team.teasanctuary.chemica.api.IEnergyStorageHolder;
@@ -39,8 +37,8 @@ public class CrankBlockEntity extends BlockEntity {
 
         IEnergyStorage e = ((IEnergyStorageHolder) crankable).getEnergyStorage();
 
-        if (e.canRecieve()) {
-            e.recieve(20, false);
+        if (e.canReceive()) {
+            e.receive(20, false);
         }
         return ActionResult.SUCCESS;
     }

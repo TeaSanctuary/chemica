@@ -14,11 +14,11 @@ public class EnergyStorage implements IEnergyStorage {
 
     public int energy = 0;
     private int capacity;
-    private boolean receive = false;
+    private boolean receive;
 
-    public EnergyStorage(int cap, boolean canRecieve) {
+    public EnergyStorage(int cap, boolean canReceive) {
         this.capacity = cap;
-        this.receive = canRecieve;
+        this.receive = canReceive;
     }
 
     public void saveToNBT(CompoundTag tag) {
@@ -44,9 +44,9 @@ public class EnergyStorage implements IEnergyStorage {
     }
 
     @Override
-    public boolean canRecieve() { return receive; }
+    public boolean canReceive() { return receive; }
 
-    public void setRecieve(boolean v) { receive = v; }
+    public void setReceive(boolean v) { receive = v; }
     public void setEnergy(int v) { energy = v; }
     public void setCapacity(int v) { capacity = v; }
 
@@ -80,7 +80,7 @@ public class EnergyStorage implements IEnergyStorage {
     }
 
     @Override
-    public int recieve(int n, boolean sim) {
+    public int receive(int n, boolean sim) {
         if (n > 0) {
             final int r = capacity - energy;
             if (n > r)
