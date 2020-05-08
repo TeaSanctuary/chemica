@@ -205,7 +205,7 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
     }
 
     public void checkStructure() {
-        if (!isBurning && hasWorld() && !getWorld().isClient) {
+        if (!isBurning && hasWorld()) {
             checkStructureIntegrity();
         }
     }
