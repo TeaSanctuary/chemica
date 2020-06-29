@@ -3,13 +3,13 @@ package team.teasanctuary.chemica.recipes;
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.PacketByteBuf;
 import net.minecraft.world.World;
 import team.teasanctuary.chemica.ModMain;
 
@@ -35,7 +35,7 @@ public class BeehiveOvenRecipe implements Recipe<Inventory> {
 
     @Override
     public boolean matches(Inventory inv, World world) {
-        return this.input.test(inv.getInvStack(0));
+        return this.input.test(inv.getStack(0));
     }
 
     public int getBurnTime() { return burnTime; }

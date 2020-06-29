@@ -1,27 +1,26 @@
 package team.teasanctuary.chemica.gui;
 
-import io.github.cottonmc.cotton.gui.CottonCraftingController;
+import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WBar;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.WItemSlot;
 import io.github.cottonmc.cotton.gui.widget.WLabel;
-import io.github.cottonmc.cotton.gui.widget.data.Alignment;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.container.BlockContext;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.util.Identifier;
 import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.WToggle;
 
-public class BeehiveOvenController extends CottonCraftingController {
-    public BeehiveOvenController(int syncId, PlayerInventory playerInventory, BlockContext context) {
-        super(ModMain.BEEHIVE_OVEN_RECIPE_TYPE, syncId, playerInventory, getBlockInventory(context), getBlockPropertyDelegate(context));
+public class BeehiveOvenController extends SyncedGuiDescription {
+    public BeehiveOvenController(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+        super(ModMain.BEEHIVE_OVEN_SCREEN_HANDLER_TYPE, syncId, playerInventory, getBlockInventory(context), getBlockPropertyDelegate(context));
 
         WGridPanel root = new WGridPanel(1);
         setRootPanel(root);
 
         WLabel label = new WLabel(I18n.translate("label.chemica.beehive_oven"));
-        label.setAlignment(Alignment.CENTER);
+
         root.add(label, 81, 0);
 
         root.add(WItemSlot.of(blockInventory, 0), 36, 36);

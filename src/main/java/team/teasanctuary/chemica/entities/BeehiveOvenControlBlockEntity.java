@@ -4,14 +4,14 @@ import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.container.PropertyDelegate;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.DefaultedList;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Tickable;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
@@ -83,7 +83,7 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
+    public void fromTag(BlockState state, CompoundTag tag) {
         isBurning = tag.getBoolean("isBurning");
         temperature = tag.getInt("temp");
         recipeBurnTime = tag.getInt("recipeBurnTime");
@@ -93,7 +93,7 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
         output = ItemStack.fromTag(tag.getCompound("output"));
         Inventories.fromTag(tag, items);
 
-        super.fromTag(tag);
+        super.fromTag(state, tag);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
             if (burnTime > 0)
                 --burnTime;
 
-            ItemStack from = getInvStack(0);
+            ItemStack from = getStack(0);
             if (isBurning) {
                 if (burnTime <= 0) {
                     isBurning = false;
@@ -153,12 +153,12 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
                     recipeBurnTime = 0;
 
                     if (temperature >= threshold && !output.isEmpty()) {
-                        if (!getInvStack(1).isEmpty() && getInvStack(1).isItemEqualIgnoreDamage(output))
+                        if (!getStack(1).isEmpty() && getStack(1).isItemEqualIgnoreDamage(output))
                             this.items.get(1).increment(output.getCount());
-                        else if (getInvStack(1).isEmpty()) {
+                        else if (getStack(1).isEmpty()) {
                             ItemStack out = output.copy();
                             out.setCount(output.getCount());
-                            setInvStack(1, out);
+                            setStack(1, out);
                         }
                         output = ItemStack.EMPTY;
                     }
@@ -195,10 +195,10 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
             ItemStack result = recipe.getOutput();
             if (result.isEmpty()) return true;
 
-            ItemStack output = getInvStack(1);
+            ItemStack output = getStack(1);
             if (output.isEmpty()) return true;
             if (!output.isItemEqualIgnoreDamage(result)) return false;
-            if (getInvMaxStackAmount() > output.getCount() && output.getCount() < output.getMaxCount()) return true;
+            if (getMaxCountPerStack() > output.getCount() && output.getCount() < output.getMaxCount()) return true;
             return output.getCount() < result.getMaxCount();
         }
         return false;

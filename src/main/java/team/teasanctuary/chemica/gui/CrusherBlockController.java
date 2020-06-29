@@ -1,29 +1,27 @@
 package team.teasanctuary.chemica.gui;
 
-import io.github.cottonmc.cotton.gui.CottonCraftingController;
+import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.*;
-import io.github.cottonmc.cotton.gui.widget.data.Alignment;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.minecraft.util.PacketByteBuf;
+import net.minecraft.screen.ScreenHandlerContext;
 import team.teasanctuary.chemica.ClientMain;
+import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.entities.CrusherBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.container.BlockContext;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.text.TranslatableText;
 
-public class CrusherBlockController extends CottonCraftingController {
-    public CrusherBlockController(int syncId, PlayerInventory playerInventory, BlockContext context) {
-        super(RecipeType.SMELTING, syncId, playerInventory, getBlockInventory(context), getBlockPropertyDelegate(context));
+public class CrusherBlockController extends SyncedGuiDescription {
+    public CrusherBlockController(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+        super(ModMain.CRUSHER_SCREEN_HANDLER_TYPE, syncId, playerInventory, getBlockInventory(context), getBlockPropertyDelegate(context));
 
         WGridPanel root = new WGridPanel(3);
         setRootPanel(root);
         //root.setSize(126, 50);
 
         WLabel label = new WLabel("Crusher");
-        label.setAlignment(Alignment.CENTER);
 
         root.add(label, (root.getWidth() / 2) * 3, 0);
 

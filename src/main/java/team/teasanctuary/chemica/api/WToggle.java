@@ -7,7 +7,7 @@ import io.github.cottonmc.cotton.gui.widget.WWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.container.PropertyDelegate;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
@@ -73,14 +73,17 @@ public class WToggle extends WWidget {
         return this;
     }
 
-    @Override
-    public void addInformation(List<String> information) {
-        String tooltipLabel = this.toggleTooltip[(getState()) ? 1 : 0];
-        if (tooltipLabel == null)
-            return;
 
-        String translated = I18n.translate(tooltipLabel);
-
-        information.add(translated);
-    }
+    // TODO: Fix this @rndtrash
+//
+//    @Override
+//    public void addInformation(List<String> information) {
+//        String tooltipLabel = this.toggleTooltip[(getState()) ? 1 : 0];
+//        if (tooltipLabel == null)
+//            return;
+//
+//        String translated = I18n.translate(tooltipLabel);
+//
+//        information.add(translated);
+//    }
 }

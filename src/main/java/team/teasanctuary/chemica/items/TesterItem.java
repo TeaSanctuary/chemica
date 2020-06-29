@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import team.teasanctuary.chemica.api.ImplementedInventory;
 import team.teasanctuary.chemica.blocks.EnergyBoxBlock;

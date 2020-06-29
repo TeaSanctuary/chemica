@@ -1,8 +1,9 @@
 package team.teasanctuary.chemica.entities;
 
-import net.minecraft.container.PropertyDelegate;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.screen.PropertyDelegate;
 import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.IEnergyProvider;
 import team.teasanctuary.chemica.api.MachineBlockWithEnergy;
@@ -29,8 +30,8 @@ public class SolidFuelGeneratorEntity extends MachineBlockWithEnergy implements 
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
+    public void fromTag(BlockState state, CompoundTag tag) {
+        super.fromTag(state, tag);
         recipeBurnTime = tag.getInt("recipeBurnTime");
         burnTime = tag.getInt("burnTime");
         isBurning = tag.getBoolean("isBurning");
@@ -93,14 +94,14 @@ public class SolidFuelGeneratorEntity extends MachineBlockWithEnergy implements 
                 }
             }
 
-            ItemStack from = getInvStack(0);
+            ItemStack from = getStack(0);
 
             if (!from.isEmpty() && !isBurning) {
                 GeneratorRecipe recipe = world.getRecipeManager().getFirstMatch(ModMain.GENERATOR_RECIPE, this, this.world).orElse(null);
 
                 if (recipe != null) {
                     if (canReceiveOutput(recipe)) {
-                        ItemStack input = getInvStack(0);
+                        ItemStack input = getStack(0);
                         burnTime = recipe.getBurnTime();
                         recipeBurnTime = burnTime;
                         isBurning = true;

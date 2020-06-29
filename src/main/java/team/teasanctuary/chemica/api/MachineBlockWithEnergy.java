@@ -1,5 +1,6 @@
 package team.teasanctuary.chemica.api;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.CompoundTag;
 
@@ -19,8 +20,8 @@ public abstract class MachineBlockWithEnergy extends MachineBlockEntity implemen
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
+    public void fromTag(BlockState state, CompoundTag tag) {
+        super.fromTag(state, tag);
         energy.writeFromNBT(tag);
     }
 

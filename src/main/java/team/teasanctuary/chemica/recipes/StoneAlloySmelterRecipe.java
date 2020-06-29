@@ -6,10 +6,10 @@ import com.google.gson.JsonSyntaxException;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import team.teasanctuary.chemica.ModMain;
@@ -34,8 +34,8 @@ public class StoneAlloySmelterRecipe implements Recipe<Inventory> {
 
     @Override
     public boolean matches(Inventory inv, World worldIn) {
-        return input != null && !this.input.isEmpty() && inv.getInvStack(0).getItem() == this.input.getItem() && inv.getInvStack(0).getCount() >= this.input.getCount()
-                && this.input2 != null && !this.input2.isEmpty() && inv.getInvStack(1).getItem() == this.input2.getItem() && inv.getInvStack(1).getCount() >= this.input2.getCount();
+        return input != null && !this.input.isEmpty() && inv.getStack(0).getItem() == this.input.getItem() && inv.getStack(0).getCount() >= this.input.getCount()
+                && this.input2 != null && !this.input2.isEmpty() && inv.getStack(1).getItem() == this.input2.getItem() && inv.getStack(1).getCount() >= this.input2.getCount();
     }
 
     @Override

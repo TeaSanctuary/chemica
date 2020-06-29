@@ -2,7 +2,7 @@ package team.teasanctuary.chemica.entities;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.container.PropertyDelegate;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.math.Direction;
 import team.teasanctuary.chemica.api.IEnergyStorageHolder;
 import team.teasanctuary.chemica.api.MachineBlockWithEnergy;

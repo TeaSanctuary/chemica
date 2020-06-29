@@ -1,13 +1,14 @@
 package team.teasanctuary.chemica.entities;
 
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.container.PropertyDelegate;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.DefaultedList;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.Tickable;
+import net.minecraft.util.collection.DefaultedList;
 import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.ImplementedInventory;
 import team.teasanctuary.chemica.api.MachineBlockEntity;
@@ -46,8 +47,8 @@ public class StoneAlloySmelterEntity extends MachineBlockEntity {
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
+    public void fromTag(BlockState state, CompoundTag tag) {
+        super.fromTag(state, tag);
         recipeBurnTime = tag.getInt("recipeBurnTime");
         burnTime = tag.getInt("burnTime");
         cookTime = tag.getInt("cookTime");
@@ -97,7 +98,7 @@ public class StoneAlloySmelterEntity extends MachineBlockEntity {
                 world.setBlockState(pos, getCachedState().with(StoneAlloySmelterBlock.BURNING, false));
             }
 
-            ItemStack fuel = getInvStack(2);
+            ItemStack fuel = getStack(2);
 
             if (!this.isBurning() && fuel.isEmpty()) {
                 if (!this.isBurning() && this.cookTime > 0) {
@@ -115,7 +116,7 @@ public class StoneAlloySmelterEntity extends MachineBlockEntity {
                         if (!fuel.isEmpty()) {
                             fuel.decrement(1);
                         } else {
-                            setInvStack(2, ItemStack.EMPTY);
+                            setStack(2, ItemStack.EMPTY);
                         }
 
                         cookTime = 0;
@@ -132,10 +133,10 @@ public class StoneAlloySmelterEntity extends MachineBlockEntity {
                         this.cookTime = 0;
                         this.cookTimeTotal = 0;
 
-                        ItemStack out = getInvStack(3);
+                        ItemStack out = getStack(3);
 
-                        ItemStack from = getInvStack(0);
-                        ItemStack from2 = getInvStack(1);
+                        ItemStack from = getStack(0);
+                        ItemStack from2 = getStack(1);
 
                         ItemStack input1 = recipe.getInput();
                         ItemStack input2 = recipe.getInput2();
@@ -144,7 +145,7 @@ public class StoneAlloySmelterEntity extends MachineBlockEntity {
                         from2.decrement(input2.getCount());
 
                         if (out.isEmpty()) {
-                            setInvStack(3, recipe.getOutput().copy());
+                            setStack(3, recipe.getOutput().copy());
                         } else if (out.getItem() == recipe.getOutput().getItem()) {
                             out.increment(recipe.getOutput().getCount());
                         }

@@ -2,16 +2,15 @@ package team.teasanctuary.chemica.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.container.PropertyDelegate;
-import net.minecraft.entity.EntityContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.BooleanBiFunction;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -56,8 +55,9 @@ public class BasicWireBlock extends MachineBlock {
         builder.add(CONNECTED_DOWN, CONNECTED_EAST, CONNECTED_NORTH, CONNECTED_SOUTH, CONNECTED_UP, CONNECTED_WEST);
     }
 
+
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView blockView, BlockPos pos, EntityContext context) {
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         double startOffset = 0.3125;
         double endOffset = 0.6875;
 

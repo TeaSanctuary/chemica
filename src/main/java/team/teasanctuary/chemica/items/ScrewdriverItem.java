@@ -27,7 +27,7 @@ public class ScrewdriverItem extends Item {
         if (be instanceof IEnergyStorageHolder) {
             PlayerEntity p = context.getPlayer();
             IEnergyStorage e = ((IEnergyStorageHolder) be).getEnergyStorage();
-            p.addChatMessage(new LiteralText("Contains: " + e.getAmount() + "/" + e.getCapacity() + " J"), true);
+            p.sendMessage(new LiteralText("Contains: " + e.getAmount() + "/" + e.getCapacity() + " J"), true);
         }
 
         return ActionResult.SUCCESS;

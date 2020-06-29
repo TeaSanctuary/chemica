@@ -38,12 +38,12 @@ public class CrusherBlock extends MachineBlock {
         BlockEntity be = world.getBlockEntity(pos);
 
         if (be instanceof CrusherBlockEntity) {
-            ContainerProviderRegistry.INSTANCE.openContainer(CrusherBlock.ID, player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
+            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
         }
 
         Inventory i = (Inventory) world.getBlockEntity(pos);
         System.out.println("The first slot holds "
-                + i.getInvStack(0) + " and the second slot holds " + i.getInvStack(1));
+                + i.getStack(0) + " and the second slot holds " + i.getStack(1));
 
         player.swingHand(Hand.MAIN_HAND);
 

@@ -1,15 +1,26 @@
 package team.teasanctuary.chemica.entities;
 
-import net.minecraft.container.PropertyDelegate;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.LootableContainerBlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.collection.DefaultedList;
 import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.ICrankable;
 import team.teasanctuary.chemica.api.MachineBlockWithEnergy;
+import team.teasanctuary.chemica.gui.CrusherBlockController;
 import team.teasanctuary.chemica.recipes.CrusherRecipe;
 import team.teasanctuary.chemica.registry.Blocks;
 
-public class CrusherBlockEntity extends MachineBlockWithEnergy implements ICrankable {
+public class CrusherBlockEntity extends MachineBlockWithEnergy implements ICrankable, NamedScreenHandlerFactory {
     private ItemStack output = ItemStack.EMPTY;
     private boolean crushingInProgress = false;
 
@@ -29,8 +40,18 @@ public class CrusherBlockEntity extends MachineBlockWithEnergy implements ICrank
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
+    public Text getDisplayName() {
+        return new TranslatableText(getCachedState().getBlock().getTranslationKey());
+    }
+
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory inventory, PlayerEntity player) {
+        return new CrusherBlockController(syncId, inventory, ScreenHandlerContext.create(world, pos));
+    }
+
+    @Override
+    public void fromTag(BlockState state, CompoundTag tag) {
+        super.fromTag(state, tag);
 
         crushingInProgress = tag.getBoolean("in_progress");
         output = ItemStack.fromTag(tag.getCompound("output"));
@@ -75,19 +96,19 @@ public class CrusherBlockEntity extends MachineBlockWithEnergy implements ICrank
                     energy.setReceive(false);
                     energy.setEnergy(0);
 
-                    ItemStack outputStack = getInvStack(1);
+                    ItemStack outputStack = getStack(1);
                     if (!outputStack.isEmpty()
                             && outputStack.isItemEqualIgnoreDamage(output)
                             && outputStack.getCount() < outputStack.getMaxCount()) {
                         outputStack.increment(output.getCount());
                     } else if (outputStack.isEmpty()) {
-                        setInvStack(1, output.copy());
+                        setStack(1, output.copy());
                     }
                     output = ItemStack.EMPTY;
                 }
             }
 
-            ItemStack from = getInvStack(0);
+            ItemStack from = getStack(0);
             if (!from.isEmpty()) {
                 CrusherRecipe recipe = world.getRecipeManager().getFirstMatch(ModMain.CRUSHER_RECIPE, this, this.world).orElse(null);
 
@@ -102,7 +123,7 @@ public class CrusherBlockEntity extends MachineBlockWithEnergy implements ICrank
                     } else if (!crushingInProgress
                             && output.isItemEqualIgnoreDamage(recipe.getOutput())
                             && energy.getAmount() > 0) {
-                        getInvStack(0).decrement(1);
+                        getStack(0).decrement(1);
                         crushingInProgress = true;
                     }
                 }
@@ -115,12 +136,13 @@ public class CrusherBlockEntity extends MachineBlockWithEnergy implements ICrank
             ItemStack result = recipe.getOutput();
             if (result.isEmpty()) return false;
 
-            ItemStack output = getInvStack(1);
+            ItemStack output = getStack(1);
             if (output.isEmpty()) return true;
             if (!output.isItemEqualIgnoreDamage(result)) return false;
-            if (getInvMaxStackAmount() > output.getCount() && output.getCount() < output.getMaxCount()) return true;
+            if (getMaxCountPerStack() > output.getCount() && output.getCount() < output.getMaxCount()) return true;
             return output.getCount() < result.getMaxCount();
         }
         return false;
     }
+
 }

@@ -3,6 +3,7 @@ package team.teasanctuary.chemica;
 import io.github.cottonmc.cotton.gui.client.CottonInventoryScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.client.render.RenderLayer;
 import team.teasanctuary.chemica.blocks.BeehiveOvenControlBlock;
 import team.teasanctuary.chemica.blocks.EnergyBoxBlock;
@@ -11,7 +12,6 @@ import team.teasanctuary.chemica.blocks.SolidFuelGeneratorBlock;
 import team.teasanctuary.chemica.blocks.StoneAlloySmelterBlock;
 import team.teasanctuary.chemica.gui.*;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
-import net.minecraft.container.BlockContext;
 import net.minecraft.util.Identifier;
 import team.teasanctuary.chemica.items.TesterItem;
 import team.teasanctuary.chemica.registry.Blocks;
@@ -30,11 +30,12 @@ public class ClientMain implements ClientModInitializer {
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(Blocks.CRANK_BLOCK, RenderLayer.getCutout());
 
-        ScreenProviderRegistry.INSTANCE.registerFactory(TesterItem.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<TesterItemController>(new TesterItemController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
-        ScreenProviderRegistry.INSTANCE.registerFactory(EnergyBoxBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<EnergyBoxController>(new EnergyBoxController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
-        ScreenProviderRegistry.INSTANCE.registerFactory(CrusherBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<CrusherBlockController>(new CrusherBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
-        ScreenProviderRegistry.INSTANCE.registerFactory(SolidFuelGeneratorBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<SolidFuelGeneratorController>(new SolidFuelGeneratorController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
-        ScreenProviderRegistry.INSTANCE.registerFactory(BeehiveOvenControlBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<BeehiveOvenController>(new BeehiveOvenController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
-        ScreenProviderRegistry.INSTANCE.registerFactory(StoneAlloySmelterBlock.ID, (syncId, identifier, player, buf) -> new CottonInventoryScreen<StoneAlloySmelterController>(new StoneAlloySmelterController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
+        ScreenRegistry.<BeehiveOvenController, CottonInventoryScreen<BeehiveOvenController>>register(ModMain.BEEHIVE_OVEN_SCREEN_HANDLER_TYPE, (gui, inventory, title) -> new CottonInventoryScreen<BeehiveOvenController>(gui, inventory.player, title));
+        ScreenRegistry.<CrusherBlockController, CottonInventoryScreen<CrusherBlockController>>register(ModMain.CRUSHER_SCREEN_HANDLER_TYPE, (gui, inventory, title) -> new CottonInventoryScreen<CrusherBlockController>(gui, inventory.player, title));
+        ScreenRegistry.<EnergyBoxController, CottonInventoryScreen<EnergyBoxController>>register(ModMain.ENERGY_BOX_SCREEN_HANDLER_TYPE, (gui, inventory, title) -> new CottonInventoryScreen<EnergyBoxController>(gui, inventory.player, title));
+        ScreenRegistry.<SolidFuelGeneratorController, CottonInventoryScreen<SolidFuelGeneratorController>>register(ModMain.SOLID_FUEL_GENERATOR_SCREEN_HANDLER_TYPE, (gui, inventory, title) -> new CottonInventoryScreen<SolidFuelGeneratorController>(gui, inventory.player, title));
+        ScreenRegistry.<StoneAlloySmelterController, CottonInventoryScreen<StoneAlloySmelterController>>register(ModMain.STONE_ALLOY_SMELTER_SCREEN_HANDLER_TYPE, (gui, inventory, title) -> new CottonInventoryScreen<StoneAlloySmelterController>(gui, inventory.player, title));
+        ScreenRegistry.<TesterItemController, CottonInventoryScreen<TesterItemController>>register(ModMain.TESTER_ITEM_SCREEN_HANDLER_TYPE, (gui, inventory, title) -> new CottonInventoryScreen<TesterItemController>(gui, inventory.player, title));
+
     }
 }

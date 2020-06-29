@@ -80,7 +80,8 @@ public class Blocks {
         COKE_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).strength(5.f, 6.f).build());
         COKE_BLOCK_ITEM = new BlockItem(COKE_BLOCK, new Item.Settings().group(CHEMICA_BUILDING_BLOCKS));
 
-        BAUXITE_BLOCK = new Block(FabricBlockSettings.of(Material.SAND).hardness(1.f).build());
+        // TODO: replace material with new sand alternative
+        BAUXITE_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).hardness(1.f).build());
 
         FIREPROOF_BRICKS_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
         FIREPROOF_BRICK_SLAB = new SlabBlock(FabricBlockSettings.copy(FIREPROOF_BRICKS_BLOCK).build());

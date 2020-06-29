@@ -3,10 +3,10 @@ package team.teasanctuary.chemica.entities;
 import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.PropertyDelegate;
 import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.container.PropertyDelegate;
 import team.teasanctuary.chemica.registry.Blocks;
 
 public class EnergyBoxEntity extends MachineBlockWithEnergy {
@@ -57,8 +57,8 @@ public class EnergyBoxEntity extends MachineBlockWithEnergy {
         super.tick();
 
         if (!world.isClient) {
-            ItemStack chargable = getInvStack(0);
-            ItemStack dischargable = getInvStack(1);
+            ItemStack chargable = getStack(0);
+            ItemStack dischargable = getStack(1);
 
             if (!chargable.isEmpty()) {
                 Item item = chargable.getItem();

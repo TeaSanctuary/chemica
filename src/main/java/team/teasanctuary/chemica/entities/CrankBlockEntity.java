@@ -1,5 +1,6 @@
 package team.teasanctuary.chemica.entities;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ActionResult;
@@ -15,8 +16,8 @@ public class CrankBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
+    public void fromTag(BlockState state, CompoundTag tag) {
+        super.fromTag(state, tag);
     }
 
     @Override

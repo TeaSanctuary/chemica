@@ -6,10 +6,10 @@ import com.google.gson.JsonSyntaxException;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import team.teasanctuary.chemica.ModMain;
@@ -37,7 +37,7 @@ public class CrusherRecipe implements Recipe<Inventory> {
 
     @Override
     public boolean matches(Inventory inv, World worldIn) {
-        return this.input.test(inv.getInvStack(0));
+        return this.input.test(inv.getStack(0));
     }
 
     @Override

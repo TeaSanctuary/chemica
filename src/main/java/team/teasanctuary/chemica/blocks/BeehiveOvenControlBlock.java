@@ -81,10 +81,11 @@ public class BeehiveOvenControlBlock extends MachineBlock implements BlockEntity
                 .with(SMOKING, false);
     }
 
-    @Override
-    public int getLuminance(BlockState state) {
-        return state.get(LIT) ? super.getLuminance(state) : 0;
-    }
+    // TODO: fix this @rndtrash
+//    @Override
+//    public int getLuminance(BlockState state) {
+//        return state.get(LIT) ? super.getLuminance(state) : 0;
+//    }
 
     @Override
     public BlockEntity createBlockEntity(BlockView view) {
@@ -106,16 +107,17 @@ public class BeehiveOvenControlBlock extends MachineBlock implements BlockEntity
         return ActionResult.SUCCESS;
     }
 
-    @Override
-    public void onBlockRemoved(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (state.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof BeehiveOvenControlBlockEntity) {
-                ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
-                world.updateHorizontalAdjacent(pos, this);
-            }
-
-            super.onBlockRemoved(state, world, pos, newState, moved);
-        }
-    }
+    // TODO: Fix this @rndtrash
+//    @Override
+//    public void onBlockRemoved(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+//        if (state.getBlock() != newState.getBlock()) {
+//            BlockEntity blockEntity = world.getBlockEntity(pos);
+//            if (blockEntity instanceof BeehiveOvenControlBlockEntity) {
+//                ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
+//                world.updateHorizontalAdjacent(pos, this);
+//            }
+//
+//            super.onBlockRemoved(state, world, pos, newState, moved);
+//        }
+//    }
 }

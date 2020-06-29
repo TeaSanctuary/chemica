@@ -2,12 +2,14 @@ package team.teasanctuary.chemica;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.ScreenHandlerType;
 import team.teasanctuary.chemica.blocks.*;
 import team.teasanctuary.chemica.gui.*;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
-import net.minecraft.container.BlockContext;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -53,6 +55,13 @@ public class ModMain implements ModInitializer {
 			.icon(() -> new ItemStack(Blocks.ENERGY_BOX_BLOCK))
 			.build();
 
+	public static ScreenHandlerType BEEHIVE_OVEN_SCREEN_HANDLER_TYPE;
+	public static ScreenHandlerType CRUSHER_SCREEN_HANDLER_TYPE;
+	public static ScreenHandlerType ENERGY_BOX_SCREEN_HANDLER_TYPE;
+	public static ScreenHandlerType SOLID_FUEL_GENERATOR_SCREEN_HANDLER_TYPE;
+	public static ScreenHandlerType STONE_ALLOY_SMELTER_SCREEN_HANDLER_TYPE;
+	public static ScreenHandlerType TESTER_ITEM_SCREEN_HANDLER_TYPE;
+
 	@Override
 	public void onInitialize() {
 		Ores.init();
@@ -73,11 +82,11 @@ public class ModMain implements ModInitializer {
 		Registry.register(Registry.RECIPE_TYPE, StoneAlloySmelterRecipe.ID, STONE_ALLOY_SMELTER_RECIPE);
 		Registry.register(Registry.RECIPE_SERIALIZER, StoneAlloySmelterRecipe.ID, StoneAlloySmelterRecipe.SERIALIZER);
 
-		ContainerProviderRegistry.INSTANCE.registerFactory(EnergyBoxBlock.ID, (syncId, id, player, buf) -> new EnergyBoxController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
-		ContainerProviderRegistry.INSTANCE.registerFactory(CrusherBlock.ID, (syncId, id, player, buf) -> new CrusherBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
-		ContainerProviderRegistry.INSTANCE.registerFactory(TesterItem.ID, (syncId, id, player, buf) -> new TesterItemController(syncId, player.inventory, BlockContext.create(player.world, player.getBlockPos())));
-		ContainerProviderRegistry.INSTANCE.registerFactory(SolidFuelGeneratorBlock.ID, (syncId, id, player, buf) -> new SolidFuelGeneratorController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
-		ContainerProviderRegistry.INSTANCE.registerFactory(BeehiveOvenControlBlock.ID, (syncId, id, player, buf) -> new BeehiveOvenController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
-		ContainerProviderRegistry.INSTANCE.registerFactory(StoneAlloySmelterBlock.ID, (syncId, id, player, buf) -> new StoneAlloySmelterController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
+		BEEHIVE_OVEN_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(BeehiveOvenControlBlock.ID, (syncId, inventory) -> new BeehiveOvenController(syncId, inventory, ScreenHandlerContext.EMPTY));
+		CRUSHER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(CrusherBlock.ID, (syncId, inventory) -> new CrusherBlockController(syncId, inventory, ScreenHandlerContext.EMPTY));
+		ENERGY_BOX_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(EnergyBoxBlock.ID, (syncId, inventory) -> new EnergyBoxController(syncId, inventory, ScreenHandlerContext.EMPTY));
+		SOLID_FUEL_GENERATOR_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(SolidFuelGeneratorBlock.ID, (syncId, inventory) -> new SolidFuelGeneratorController(syncId, inventory, ScreenHandlerContext.EMPTY));
+		STONE_ALLOY_SMELTER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(StoneAlloySmelterBlock.ID, (syncId, inventory) -> new StoneAlloySmelterController(syncId, inventory, ScreenHandlerContext.EMPTY));
+		TESTER_ITEM_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(TesterItem.ID, (syncId, inventory) -> new TesterItemController(syncId, inventory, ScreenHandlerContext.EMPTY));
 	}
 }

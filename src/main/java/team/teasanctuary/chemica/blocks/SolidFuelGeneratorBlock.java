@@ -64,25 +64,26 @@ public class SolidFuelGeneratorBlock extends MachineBlock {
 
         Inventory i = (Inventory) world.getBlockEntity(pos);
         System.out.println("The first slot holds "
-                + i.getInvStack(0) + " and the second slot holds " + i.getInvStack(1));
+                + i.getStack(0) + " and the second slot holds " + i.getStack(1));
 
         player.swingHand(Hand.MAIN_HAND);
 
         return ActionResult.SUCCESS;
     }
 
-    @Override
-    public void onBlockRemoved(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (state.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof SolidFuelGeneratorEntity) {
-                ItemScatterer.spawn(world, (BlockPos)pos, (Inventory)((SolidFuelGeneratorEntity)blockEntity));
-                world.updateHorizontalAdjacent(pos, this);
-            }
-
-            super.onBlockRemoved(state, world, pos, newState, moved);
-        }
-    }
+    // TODO: Fix this @rndtrash
+//    @Override
+//    public void onBlockRemoved(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+//        if (state.getBlock() != newState.getBlock()) {
+//            BlockEntity blockEntity = world.getBlockEntity(pos);
+//            if (blockEntity instanceof SolidFuelGeneratorEntity) {
+//                ItemScatterer.spawn(world, (BlockPos)pos, (Inventory)((SolidFuelGeneratorEntity)blockEntity));
+//                world.updateHorizontalAdjacent(pos, this);
+//            }
+//
+//            super.onBlockRemoved(state, world, pos, newState, moved);
+//        }
+//    }
 
     @Environment(EnvType.CLIENT)
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {

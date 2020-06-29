@@ -42,7 +42,7 @@ public class StoneAlloySmelterBlock extends MachineBlock {
 
         Inventory i = (Inventory) world.getBlockEntity(pos);
         System.out.println("The first slot holds "
-                + i.getInvStack(0) + " and the second slot holds " + i.getInvStack(1));
+                + i.getStack(0) + " and the second slot holds " + i.getStack(1));
 
         player.swingHand(Hand.MAIN_HAND);
 
@@ -50,16 +50,14 @@ public class StoneAlloySmelterBlock extends MachineBlock {
     }
 
     @Override
-    public void onBlockRemoved(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (state.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof StoneAlloySmelterEntity) {
-                ItemScatterer.spawn(world, (BlockPos)pos, (Inventory)((StoneAlloySmelterEntity)blockEntity));
-                world.updateHorizontalAdjacent(pos, this);
-            }
-
-            super.onBlockRemoved(state, world, pos, newState, moved);
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof StoneAlloySmelterEntity) {
+            ItemScatterer.spawn(world, (BlockPos)pos, (Inventory)((StoneAlloySmelterEntity)blockEntity));
+            world.updateComparators(pos, this);
         }
+
+        super.onBreak(world, pos, state, player);
     }
 
     @Override
