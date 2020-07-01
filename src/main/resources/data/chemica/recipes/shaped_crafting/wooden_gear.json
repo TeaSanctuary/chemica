@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SPS",
+    "P0P",
+    "SPS"
+  ],
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "0": {
+      "item": "minecraft:air"
+    }
+  },
+  "result": {
+    "item": "chemica:wooden_gear",
+    "count": 1
+  }
+}

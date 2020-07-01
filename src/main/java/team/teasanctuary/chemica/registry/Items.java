@@ -15,7 +15,6 @@ public class Items {
     public static ScrewdriverItem SCREWDRIVER_ITEM;
     public static BatteryItem BATTERY_ITEM;
     public static TesterItem TESTER_ITEM;
-    public static Item COKE_ITEM;
 
     public static final ItemGroup CHEMICA_ITEMS = FabricItemGroupBuilder.create(
             new Identifier("chemica", "items"))
@@ -26,7 +25,6 @@ public class Items {
         SCREWDRIVER_ITEM = new ScrewdriverItem(new Item.Settings().maxCount(1).group(CHEMICA_ITEMS));
         BATTERY_ITEM = new BatteryItem(new Item.Settings().maxCount(1).group(CHEMICA_ITEMS));
         TESTER_ITEM = new TesterItem(new Item.Settings().maxCount(1).group(CHEMICA_ITEMS));
-        COKE_ITEM = new Item(new Item.Settings().group(CHEMICA_ITEMS));
 
         register();
     }
@@ -35,7 +33,6 @@ public class Items {
         Registry.register(Registry.ITEM, ScrewdriverItem.ID, SCREWDRIVER_ITEM);
         Registry.register(Registry.ITEM, BatteryItem.ID, BATTERY_ITEM);
         Registry.register(Registry.ITEM, TesterItem.ID, TESTER_ITEM);
-        Registry.register(Registry.ITEM, new Identifier("chemica", "coke"), COKE_ITEM);
     }
 
 }

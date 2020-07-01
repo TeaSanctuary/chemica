@@ -36,8 +36,9 @@ public class Materials {
     public static Item SPHALERITE_ORE_DUST;
     public static Item CHALCOPYRITE_ORE_DUST;
 
-    public static Item WOODEN_GEAR;
+    public static Item COKE_ITEM;
 
+    public static Item WOODEN_GEAR;
 
     public static final ItemGroup CHEMICA_MATERIALS = FabricItemGroupBuilder.create(
             new Identifier("chemica", "materials"))
@@ -54,7 +55,6 @@ public class Materials {
         STEEL_INGOT = new Item(new Item.Settings().group(CHEMICA_MATERIALS));
         TIN_INGOT = new Item(new Item.Settings().group(CHEMICA_MATERIALS));
         ZINC_INGOT = new Item(new Item.Settings().group(CHEMICA_MATERIALS));
-        WOODEN_GEAR = new Item(new Item.Settings().group(CHEMICA_MATERIALS));
 
         ARGENTITE_ORE_DUST = new Item(new Item.Settings().group(CHEMICA_MATERIALS));
         CASSITERITE_ORE_DUST = new Item(new Item.Settings().group(CHEMICA_MATERIALS));
@@ -73,6 +73,10 @@ public class Materials {
         SPHALERITE_ORE_DUST = new Item(new Item.Settings().group(CHEMICA_MATERIALS));
         CHALCOPYRITE_ORE_DUST = new Item(new Item.Settings().group(CHEMICA_MATERIALS));
 
+        COKE_ITEM = new Item(new Item.Settings().group(CHEMICA_MATERIALS));
+
+        WOODEN_GEAR = new Item(new Item.Settings().group(CHEMICA_MATERIALS));
+
         register();
     }
 
@@ -86,7 +90,6 @@ public class Materials {
         Registry.register(Registry.ITEM, new Identifier("chemica", "steel_ingot"), STEEL_INGOT);
         Registry.register(Registry.ITEM, new Identifier("chemica", "tin_ingot"), TIN_INGOT);
         Registry.register(Registry.ITEM, new Identifier("chemica", "zinc_ingot"), ZINC_INGOT);
-        Registry.register(Registry.ITEM, new Identifier("chemica", "wooden_gear"), WOODEN_GEAR);
 
         Registry.register(Registry.ITEM, new Identifier("chemica", "argentite_ore_dust"), ARGENTITE_ORE_DUST);
         Registry.register(Registry.ITEM, new Identifier("chemica", "cassiterite_ore_dust"), CASSITERITE_ORE_DUST);
@@ -104,6 +107,10 @@ public class Materials {
         Registry.register(Registry.ITEM, new Identifier("chemica", "sphalerite_ore_dust"), SPHALERITE_ORE_DUST);
         Registry.register(Registry.ITEM, new Identifier("chemica", "galena_ore_dust"), GALENA_ORE_DUST);
         Registry.register(Registry.ITEM, new Identifier("chemica", "chalcopyrite_ore_dust"), CHALCOPYRITE_ORE_DUST);
+
+        Registry.register(Registry.ITEM, new Identifier("chemica", "coke"), COKE_ITEM);
+
+        Registry.register(Registry.ITEM, new Identifier("chemica", "wooden_gear"), WOODEN_GEAR);
     }
 
 }
