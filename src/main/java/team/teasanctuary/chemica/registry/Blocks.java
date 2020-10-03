@@ -27,8 +27,6 @@ public class Blocks {
 
     public static Block COKE_BLOCK;
 
-    public static Block BAUXITE_BLOCK;
-
     public static Block FIREPROOF_BRICKS_BLOCK;
     public static SlabBlock FIREPROOF_BRICK_SLAB;
     public static StairsBlock FIREPROOF_BRICK_STAIRS;
@@ -51,8 +49,6 @@ public class Blocks {
 
     public static final Identifier COKE_BLOCK_ID = new Identifier("chemica", "coke_block");
 
-    public static final Identifier BAUXITE_BLOCK_ID = new Identifier("chemica", "bauxite");
-
     public static final Identifier FIREPROOF_BRICKS_BLOCK_ID = new Identifier("chemica", "fireproof_bricks");
     public static final Identifier FIREPROOF_BRICK_SLAB_ID = new Identifier("chemica", "fireproof_brick_slab");
     public static final Identifier FIREPROOF_BRICK_STAIRS_ID = new Identifier("chemica", "fireproof_brick_stairs");
@@ -73,15 +69,12 @@ public class Blocks {
         CRUSHER_BLOCK = new CrusherBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
         CRANK_BLOCK = new CrankBlock(FabricBlockSettings.of(Material.WOOD).hardness(1.f).nonOpaque().build());
         SOLID_FUEL_GENERATOR_BLOCK = new SolidFuelGeneratorBlock(FabricBlockSettings.of(Material.METAL).hardness(2.5f).build());
-        BEEHIVE_OVEN_CONTROL_BLOCK = new BeehiveOvenControlBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).lightLevel(13).build());
+        BEEHIVE_OVEN_CONTROL_BLOCK = new BeehiveOvenControlBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
         STONE_ALLOY_SMELTER_BLOCK = new StoneAlloySmelterBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
         BASIC_WIRE_BLOCK = new BasicWireBlock(FabricBlockSettings.of(Material.METAL).hardness(1.f).nonOpaque().build());
 
         COKE_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).strength(5.f, 6.f).build());
         COKE_BLOCK_ITEM = new BlockItem(COKE_BLOCK, new Item.Settings().group(CHEMICA_BUILDING_BLOCKS));
-
-        // TODO: replace material with new sand alternative
-        BAUXITE_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).hardness(1.f).build());
 
         FIREPROOF_BRICKS_BLOCK = new Block(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
         FIREPROOF_BRICK_SLAB = new SlabBlock(FabricBlockSettings.copy(FIREPROOF_BRICKS_BLOCK).build());
@@ -99,9 +92,6 @@ public class Blocks {
     private static void register() {
         Registry.register(Registry.BLOCK, COKE_BLOCK_ID, COKE_BLOCK);
         Registry.register(Registry.ITEM, COKE_BLOCK_ID, COKE_BLOCK_ITEM);
-
-        Registry.register(Registry.BLOCK, BAUXITE_BLOCK_ID, BAUXITE_BLOCK);
-        Registry.register(Registry.ITEM, BAUXITE_BLOCK_ID, new BlockItem(BAUXITE_BLOCK, new Item.Settings().maxCount(64).group(CHEMICA_BUILDING_BLOCKS)));
 
         Registry.register(Registry.BLOCK, FIREPROOF_BRICKS_BLOCK_ID, FIREPROOF_BRICKS_BLOCK);
         Registry.register(Registry.ITEM, FIREPROOF_BRICKS_BLOCK_ID, new BlockItem(FIREPROOF_BRICKS_BLOCK, new Item.Settings().maxCount(64).group(CHEMICA_BUILDING_BLOCKS)));

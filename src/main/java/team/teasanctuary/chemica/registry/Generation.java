@@ -1,19 +1,13 @@
 package team.teasanctuary.chemica.registry;
 
+import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
-
-import java.util.function.Consumer;
+import net.minecraft.world.biome.source.BiomeSource;
 
 public class Generation {
-    // TODO: Make something like generation class
-    private static void handleBiome(Biome biome) {
+    // TODO: It looks like we don't need Generation class anymore as we have Mixin.
+    /* private static void handleBiome(Codec<? extends BiomeSource> codec) {
         if (biome.getCategory() != Biome.Category.NETHER && biome.getCategory() != Biome.Category.THEEND) {
             biome.addFeature(
                     GenerationStep.Feature.UNDERGROUND_ORES,
@@ -158,13 +152,15 @@ public class Generation {
                                     50 //Max y level
                             ))));
         }
-    }
+    } */
 
     public static void init() {
         //Loop over existing biomes
-        Registry.BIOME.forEach(Generation::handleBiome);
+        //Registry.BIOME_SOURCE.forEach(Generation::handleBiome);
+        //DynamicRegistryCallback.callback(Registry.BIOME_KEY).register();
+
 
         //Listen for other biomes being registered
-        RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> handleBiome(biome));
+        //RegistryEntryAddedCallback.event(Registry.BIOME_SOURCE).register((i, identifier, biome) -> handleBiome(biome));
     }
 }

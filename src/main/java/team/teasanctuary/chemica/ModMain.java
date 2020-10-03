@@ -9,7 +9,6 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import team.teasanctuary.chemica.blocks.*;
 import team.teasanctuary.chemica.gui.*;
-import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -82,7 +81,7 @@ public class ModMain implements ModInitializer {
 		Registry.register(Registry.RECIPE_TYPE, StoneAlloySmelterRecipe.ID, STONE_ALLOY_SMELTER_RECIPE);
 		Registry.register(Registry.RECIPE_SERIALIZER, StoneAlloySmelterRecipe.ID, StoneAlloySmelterRecipe.SERIALIZER);
 
-		BEEHIVE_OVEN_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(BeehiveOvenControlBlock.ID, (syncId, inventory) -> new BeehiveOvenController(syncId, inventory, ScreenHandlerContext.EMPTY));
+		BEEHIVE_OVEN_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(BeehiveOvenControlBlock.ID, (syncId, inventory) -> new BeehiveOvenGuiDescription(syncId, inventory, ScreenHandlerContext.EMPTY));
 		CRUSHER_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(CrusherBlock.ID, (syncId, inventory) -> new CrusherBlockController(syncId, inventory, ScreenHandlerContext.EMPTY));
 		ENERGY_BOX_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(EnergyBoxBlock.ID, (syncId, inventory) -> new EnergyBoxController(syncId, inventory, ScreenHandlerContext.EMPTY));
 		SOLID_FUEL_GENERATOR_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(SolidFuelGeneratorBlock.ID, (syncId, inventory) -> new SolidFuelGeneratorController(syncId, inventory, ScreenHandlerContext.EMPTY));

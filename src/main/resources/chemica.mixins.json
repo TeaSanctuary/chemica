@@ -4,7 +4,8 @@
   "package": "team.teasanctuary.chemica.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "FurnaceFuelMixin"
+    "FurnaceFuelMixin",
+    "OreGenerationMixin"
   ],
   "client": [
   ],
