@@ -12,19 +12,25 @@ import net.minecraft.util.Identifier;
 import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.WToggle;
 
-public class BeehiveOvenController extends SyncedGuiDescription {
-    public BeehiveOvenController(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
-        super(ModMain.BEEHIVE_OVEN_SCREEN_HANDLER_TYPE, syncId, playerInventory, getBlockInventory(context), getBlockPropertyDelegate(context));
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class BeehiveOvenGuiDescription extends SyncedGuiDescription {
+
+    public static final int PROPERTY_DELEGATE_SIZE = 5;
+
+    public BeehiveOvenGuiDescription(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+        super(ModMain.BEEHIVE_OVEN_SCREEN_HANDLER_TYPE, syncId, playerInventory, getBlockInventory(context), getBlockPropertyDelegate(context, PROPERTY_DELEGATE_SIZE));
 
         WGridPanel root = new WGridPanel(1);
         setRootPanel(root);
 
-        WLabel label = new WLabel(I18n.translate("label.chemica.beehive_oven"));
-
-        root.add(label, 81, 0);
-
         root.add(WItemSlot.of(blockInventory, 0), 36, 36);
         root.add(WItemSlot.outputOf(blockInventory, 1), 108, 36);
+
+        WToggle completeToggle = new WToggle(new Identifier("chemica", "textures/gui/toggle.png"), 32, 16, 16, 0);
+        completeToggle.withTooltips("chemica.tooltip.beehive_oven.not_complete", "chemica.tooltip.beehive_oven.complete");
+        root.add(completeToggle, 0, 72);
 
         WBar tempBar = new WBar(new Identifier("chemica", "textures/gui/temperature_bg.png"),
                 new Identifier("chemica", "textures/gui/temperature_fg.png"),1, 2, WBar.Direction.UP);
@@ -36,9 +42,6 @@ public class BeehiveOvenController extends SyncedGuiDescription {
                 3, 4, WBar.Direction.UP);
         root.add(progressBar, 72, 36, 18, 18);
 
-        WToggle completeToggle = new WToggle(new Identifier("chemica", "textures/gui/toggle.png"), 32, 16, 16, 0);
-        completeToggle.withTooltips("chemica.tooltip.beehive_oven.not_complete", "chemica.tooltip.beehive_oven.complete");
-        root.add(completeToggle, 0, 72);
 
         root.add(createPlayerInventoryPanel(), 0, 90);
 

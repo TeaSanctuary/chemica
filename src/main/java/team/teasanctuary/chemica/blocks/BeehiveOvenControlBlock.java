@@ -2,7 +2,6 @@ package team.teasanctuary.chemica.blocks;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -12,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -26,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import team.teasanctuary.chemica.api.MachineBlock;
 import team.teasanctuary.chemica.entities.BeehiveOvenControlBlockEntity;
 
@@ -38,9 +39,16 @@ public class BeehiveOvenControlBlock extends MachineBlock implements BlockEntity
 
     public BeehiveOvenControlBlock(Settings settings) {
         super(settings);
+        super.settings.luminance((state) -> state.get(LIT) ? 13 : 0); // FIXME: does it even work?
         setDefaultState(this.stateManager.getDefaultState()
                 .with(LIT, false)
                 .with(SMOKING, false));
+    }
+
+    @Override
+    public @Nullable NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        return blockEntity instanceof NamedScreenHandlerFactory ? (NamedScreenHandlerFactory)blockEntity : null;
     }
 
     @Override
@@ -81,12 +89,6 @@ public class BeehiveOvenControlBlock extends MachineBlock implements BlockEntity
                 .with(SMOKING, false);
     }
 
-    // TODO: fix this @rndtrash
-//    @Override
-//    public int getLuminance(BlockState state) {
-//        return state.get(LIT) ? super.getLuminance(state) : 0;
-//    }
-
     @Override
     public BlockEntity createBlockEntity(BlockView view) {
         return new BeehiveOvenControlBlockEntity();
@@ -101,23 +103,35 @@ public class BeehiveOvenControlBlock extends MachineBlock implements BlockEntity
         if (!(be instanceof BeehiveOvenControlBlockEntity))
             return ActionResult.SUCCESS;
 
-        ContainerProviderRegistry.INSTANCE.openContainer(BeehiveOvenControlBlock.ID, player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
+        //ContainerProviderRegistry.INSTANCE.openContainer(BeehiveOvenControlBlock.ID, player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
+        player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
 
         player.swingHand(Hand.MAIN_HAND);
         return ActionResult.SUCCESS;
     }
 
-    // TODO: Fix this @rndtrash
-//    @Override
-//    public void onBlockRemoved(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-//        if (state.getBlock() != newState.getBlock()) {
-//            BlockEntity blockEntity = world.getBlockEntity(pos);
-//            if (blockEntity instanceof BeehiveOvenControlBlockEntity) {
-//                ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
-//                world.updateHorizontalAdjacent(pos, this);
-//            }
-//
-//            super.onBlockRemoved(state, world, pos, newState, moved);
-//        }
-//    }
+    // TODO: it should be a replacement to onBlockRemoved, but i'm not sure if it's gonna work properly
+    /*@Override
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        if (state.getBlock() != newState.getBlock()) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof BeehiveOvenControlBlockEntity) {
+                ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
+                world.updateComparators(pos, this);
+            }
+
+            super.onStateReplaced(state, world, pos, newState, moved);
+        }
+    }*/
+
+    @Override
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof BeehiveOvenControlBlockEntity) {
+            ItemScatterer.spawn(world, pos, (Inventory) blockEntity);
+            world.updateComparators(pos, this);
+        }
+
+        super.onBreak(world, pos, state, player);
+    }
 }

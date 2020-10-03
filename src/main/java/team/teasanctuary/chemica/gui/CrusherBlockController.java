@@ -2,6 +2,7 @@ package team.teasanctuary.chemica.gui;
 
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.*;
+import io.github.cottonmc.cotton.gui.widget.data.Texture;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.screen.ScreenHandlerContext;
@@ -31,7 +32,7 @@ public class CrusherBlockController extends SyncedGuiDescription {
         WItemSlot destSlot = WItemSlot.of(blockInventory, 1);
         root.add(destSlot, root.getWidth() - (16 * 3), 5);
 
-        WBar progressBar = new WBar(null, null, 0, 1, WBar.Direction.RIGHT);
+        WBar progressBar = new WBar((Texture) null, (Texture) null, 0, 1, WBar.Direction.RIGHT);
         progressBar.setProperties(propertyDelegate);
         root.add(progressBar, 6 * 3, 7, 17, 1);
 

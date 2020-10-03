@@ -4,11 +4,18 @@ import io.github.cottonmc.cotton.gui.PropertyDelegateHolder;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
@@ -19,10 +26,12 @@ import net.minecraft.world.World;
 import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.ImplementedInventory;
 import team.teasanctuary.chemica.blocks.BeehiveOvenControlBlock;
+import team.teasanctuary.chemica.gui.BeehiveOvenGuiDescription;
 import team.teasanctuary.chemica.recipes.BeehiveOvenRecipe;
 import team.teasanctuary.chemica.registry.Blocks;
 
-public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickable, ImplementedInventory, PropertyDelegateHolder {
+public class BeehiveOvenControlBlockEntity extends BlockEntity implements
+        Tickable, ImplementedInventory, PropertyDelegateHolder, NamedScreenHandlerFactory {
     protected final DefaultedList<ItemStack> items;
     private boolean isComplete;
     private Direction direction;
@@ -256,8 +265,8 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
     }
 
     private boolean checkStructureIntegrity() {
-        assert(hasWorld());
         World world = getWorld();
+        assert world != null;
         BlockPos pos = getPos();
         BlockPos xMod = new BlockPos(pos); // right relative to the block
         BlockPos yMod = new BlockPos(0, -1, 0);
@@ -318,5 +327,16 @@ public class BeehiveOvenControlBlockEntity extends BlockEntity implements Tickab
         }
 
         return tempIsComplete;
+    }
+
+    @Override
+    public Text getDisplayName() {
+        // Using the block name as the screen title
+        return new TranslatableText(getCachedState().getBlock().getTranslationKey());
+    }
+
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory inventory, PlayerEntity player) {
+        return new BeehiveOvenGuiDescription(syncId, inventory, ScreenHandlerContext.create(world, pos));
     }
 }
