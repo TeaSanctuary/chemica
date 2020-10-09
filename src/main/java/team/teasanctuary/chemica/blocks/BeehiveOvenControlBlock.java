@@ -5,7 +5,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.RedstoneTorchBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
@@ -34,12 +33,11 @@ import java.util.Random;
 
 public class BeehiveOvenControlBlock extends MachineBlock implements BlockEntityProvider {
     public static final Identifier ID = new Identifier("chemica", "beehive_oven_control");
-    public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
+    public static final BooleanProperty LIT = Properties.LIT;
     public static final BooleanProperty SMOKING = BooleanProperty.of("smoking");
 
     public BeehiveOvenControlBlock(Settings settings) {
         super(settings);
-        super.settings.luminance((state) -> state.get(LIT) ? 13 : 0); // FIXME: does it even work?
         setDefaultState(this.stateManager.getDefaultState()
                 .with(LIT, false)
                 .with(SMOKING, false));
@@ -54,8 +52,7 @@ public class BeehiveOvenControlBlock extends MachineBlock implements BlockEntity
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
-        builder.add(Properties.LIT);
-        builder.add(SMOKING);
+        builder.add(LIT, SMOKING);
     }
 
     @Environment(EnvType.CLIENT)
@@ -103,7 +100,6 @@ public class BeehiveOvenControlBlock extends MachineBlock implements BlockEntity
         if (!(be instanceof BeehiveOvenControlBlockEntity))
             return ActionResult.SUCCESS;
 
-        //ContainerProviderRegistry.INSTANCE.openContainer(BeehiveOvenControlBlock.ID, player, (packetByteBuf -> packetByteBuf.writeBlockPos(pos)));
         player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
 
         player.swingHand(Hand.MAIN_HAND);

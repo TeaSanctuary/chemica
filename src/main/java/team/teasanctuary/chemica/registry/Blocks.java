@@ -8,12 +8,15 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import team.teasanctuary.chemica.ModMain;
 import team.teasanctuary.chemica.api.CustomStairsBlock;
 import team.teasanctuary.chemica.blocks.*;
 import team.teasanctuary.chemica.entities.*;
+
+import java.util.function.ToIntFunction;
 
 public class Blocks {
     public static EnergyBoxBlock ENERGY_BOX_BLOCK;
@@ -69,7 +72,7 @@ public class Blocks {
         CRUSHER_BLOCK = new CrusherBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
         CRANK_BLOCK = new CrankBlock(FabricBlockSettings.of(Material.WOOD).hardness(1.f).nonOpaque().build());
         SOLID_FUEL_GENERATOR_BLOCK = new SolidFuelGeneratorBlock(FabricBlockSettings.of(Material.METAL).hardness(2.5f).build());
-        BEEHIVE_OVEN_CONTROL_BLOCK = new BeehiveOvenControlBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
+        BEEHIVE_OVEN_CONTROL_BLOCK = new BeehiveOvenControlBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build().luminance(createLightLevelFromBlockState(13)));
         STONE_ALLOY_SMELTER_BLOCK = new StoneAlloySmelterBlock(FabricBlockSettings.of(Material.STONE).hardness(2.f).build());
         BASIC_WIRE_BLOCK = new BasicWireBlock(FabricBlockSettings.of(Material.METAL).hardness(1.f).nonOpaque().build());
 
@@ -145,5 +148,9 @@ public class Blocks {
         Registry.register(Registry.ITEM, BeehiveOvenControlBlock.ID, new BlockItem(BEEHIVE_OVEN_CONTROL_BLOCK, new Item.Settings().group(ModMain.CHEMICA_GENERAL)));
         BEEHIVE_OVEN_CONTROL_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, BeehiveOvenControlBlock.ID,
                 BlockEntityType.Builder.create(BeehiveOvenControlBlockEntity::new, BEEHIVE_OVEN_CONTROL_BLOCK).build(null));
+    }
+
+    private static ToIntFunction<BlockState> createLightLevelFromBlockState(int litLevel) {
+        return (blockState) -> (Boolean)blockState.get(Properties.LIT) ? litLevel : 0;
     }
 }
